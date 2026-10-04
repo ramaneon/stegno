@@ -3,50 +3,40 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>StegnoVault — React Vision × Shadow-3D Steganography Suite</title>
-  <meta name="description" content="Spatial 3D Steganography Suite combining Apple Vision Pro spatial glassmorphism and MotionSites Shadow-3D depth. Military-grade AES-256-GCM encryption & LSB carrier modulation."/>
+  <title>StegnoVault — Apogee Cosmic Edition</title>
+  <meta name="description" content="Next-Gen Steganography Suite built in Apogee Cosmic Navy & Glassmorphic Design System. 100% browser-based AES-256-GCM encryption & LSB carrier modulation."/>
   
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;450;500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
     /* ══════════════════════════════════════════════════════════════
-       MOTIONSITES "SHADOW-3D" × "REACT-VISION" (SPATIAL GLASS)
-       VisionOS Frosted Glass, Refractive Specular Glare & Deep 3D Shadow
+       APOGEE COLOR SYSTEM & SPECIFICATION (EXACT REPRODUCTION)
        ══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
-      /* Shadow-3D & React-Vision Palette */
-      --bg: #060608;
-      --bg-spatial: rgba(18, 18, 24, 0.65);
-      --bg-spatial-elevated: rgba(26, 26, 34, 0.78);
-      --bg-glass-card: rgba(12, 12, 16, 0.72);
-      
-      --pure-white: #ffffff;
-      --pearl: #f4f4f5;
-      --silver: #d4d4d8;
-      --graphite: #71717a;
-      --carbon: #27272a;
-      --deep-charcoal: #141418;
+      /* Apogee Exact Tokens */
+      --apogee-bg: #080A19;
+      --apogee-btn-fill: #E9E9E9;
+      --apogee-btn-txt: #0A0707;
+      --apogee-nav-glass: rgba(10, 7, 7, 0.45);
+      --apogee-auth-glass: rgba(0, 0, 0, 0.45);
+      --apogee-card-glass: rgba(17, 16, 15, 0.42);
+      --apogee-panel-glass: rgba(17, 16, 15, 0.65);
+      --apogee-projected: rgba(255, 255, 255, 0.1);
+      --apogee-active: #ffffff;
+      --apogee-gridlines: rgba(255, 255, 255, 0.1);
+      --apogee-border: rgba(255, 255, 255, 0.12);
+      --apogee-border-focus: rgba(255, 255, 255, 0.45);
+      --apogee-cents-dim: rgba(255, 255, 255, 0.2);
+      --apogee-txt-secondary: rgba(255, 255, 255, 0.82);
+      --apogee-txt-muted: rgba(255, 255, 255, 0.48);
 
-      /* Spatial VisionOS Lighting */
-      --spatial-glass-blur: blur(44px) saturate(210%) brightness(1.04);
-      --glass-top-rim: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.35);
-      --glass-bottom-rim: inset 0 -1.5px 1px 0 rgba(0, 0, 0, 0.6);
-      --spatial-border: 1px solid rgba(255, 255, 255, 0.12);
-      --spatial-border-hover: 1px solid rgba(255, 255, 255, 0.38);
-
-      /* Volumetric Shadow-3D Levels */
-      --shadow-3d-xl: 0 45px 110px -20px rgba(0, 0, 0, 0.96), 0 25px 50px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.08);
-      --shadow-3d-card: 0 32px 80px -15px rgba(0, 0, 0, 0.92), 0 16px 36px -10px rgba(0, 0, 0, 0.88), var(--glass-top-rim), var(--glass-bottom-rim);
-      --shadow-3d-btn: 0 18px 40px -8px rgba(0, 0, 0, 0.95), 0 8px 16px -4px rgba(0, 0, 0, 0.8), inset 0 1.5px 0 rgba(255, 255, 255, 0.5);
-      --shadow-3d-sunken: inset 0 3px 8px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(0, 0, 0, 0.95), 0 1px 0 rgba(255, 255, 255, 0.06);
-
-      --radius-sm: 10px;
-      --radius-md: 18px;
-      --radius-lg: 28px;
+      --radius-btn: 12px;
+      --radius-pill: 11px;
+      --radius-card: 28px;
       --radius-full: 9999px;
 
       --font-display: 'Space Grotesk', -apple-system, sans-serif;
@@ -56,8 +46,8 @@
 
     html {
       scroll-behavior: smooth;
-      background: var(--bg);
-      color: var(--txt-primary);
+      background: var(--apogee-bg);
+      color: #ffffff;
       font-family: var(--font-body);
       overflow-x: hidden;
     }
@@ -65,80 +55,53 @@
     body {
       min-height: 100vh;
       position: relative;
-      background: var(--bg);
-      cursor: default;
+      background: var(--apogee-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── ORIGINKIT × REACT-VISION SPATIAL CURSOR ── */
-    @media (pointer: fine) {
-      body { cursor: none; }
-      .cursor-dot {
-        position: fixed; top: 0; left: 0; width: 6px; height: 6px;
-        background: #ffffff; border-radius: 50%;
-        pointer-events: none; z-index: 10000;
-        transform: translate(-50%, -50%);
-        transition: width 0.18s, height 0.18s, background-color 0.2s;
-        box-shadow: 0 0 14px rgba(255, 255, 255, 0.95), 0 0 28px rgba(255, 255, 255, 0.4);
-      }
-      .cursor-aura {
-        position: fixed; top: 0; left: 0; width: 36px; height: 36px;
-        border: 1.5px solid rgba(255, 255, 255, 0.4);
-        border-radius: 50%; pointer-events: none; z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: width 0.28s cubic-bezier(0.25, 1, 0.5, 1), 
-                    height 0.28s cubic-bezier(0.25, 1, 0.5, 1), 
-                    border-color 0.25s, background-color 0.25s, transform 0.08s linear;
-        background: rgba(255, 255, 255, 0.04);
-        backdrop-filter: blur(2px) brightness(1.2);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85);
-      }
-      .cursor-hover .cursor-dot {
-        width: 10px; height: 10px; background: #fff;
-        box-shadow: 0 0 20px #fff, 0 0 36px rgba(255, 255, 255, 0.9);
-      }
-      .cursor-hover .cursor-aura {
-        width: 62px; height: 62px;
-        border-color: rgba(255, 255, 255, 0.95);
-        background: rgba(255, 255, 255, 0.1);
-      }
-      .cursor-click .cursor-aura {
-        transform: translate(-50%, -50%) scale(0.85);
-        background: rgba(255, 255, 255, 0.28);
-      }
-    }
-    @media (pointer: coarse) {
-      .cursor-dot, .cursor-aura { display: none !important; }
-    }
-
-    /* ── REACT-VISION 3D SPATIAL CANVAS ── */
-    #pulse-canvas {
+    /* ── APOGEE BACKGROUND VIDEO (EXACT CLOUDFRONT SOURCE) ── */
+    .apogee-video-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.95;
     }
-
-    .ambient-shadow-light {
+    .apogee-overlay-tint {
       position: fixed;
       inset: 0;
-      pointer-events: none;
+      background: radial-gradient(circle at 50% 30%, rgba(8, 10, 25, 0.4) 0%, rgba(8, 10, 25, 0.85) 100%);
       z-index: 0;
-      background: 
-        radial-gradient(circle 900px at 50% -10%, rgba(255, 255, 255, 0.06), transparent 70%),
-        radial-gradient(circle 750px at 15% 95%, rgba(255, 255, 255, 0.03), transparent 75%),
-        radial-gradient(circle 1000px at 85% 50%, rgba(0, 0, 0, 0.96), transparent 85%);
+      pointer-events: none;
     }
 
-    .shadow-3d-vignette {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      box-shadow: inset 0 0 180px rgba(0, 0, 0, 0.98);
+    /* ── CURSOR ── */
+    @media (pointer: fine) {
+      body { cursor: none; }
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+        background: #ffffff; border-radius: 50%; pointer-events: none; z-index: 10000;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+      .cursor-aura {
+        position: fixed; top: 0; left: 0; width: 34px; height: 34px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4); border-radius: 50%; pointer-events: none; z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.26s cubic-bezier(0.16, 1, 0.3, 1), height 0.26s cubic-bezier(0.16, 1, 0.3, 1), transform 0.08s linear;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(2px);
+      }
+      .cursor-hover .cursor-dot { width: 10px; height: 10px; background: #fff; box-shadow: 0 0 16px #fff; }
+      .cursor-hover .cursor-aura { width: 56px; height: 56px; border-color: #fff; background: rgba(255, 255, 255, 0.12); }
+    }
+    @media (pointer: coarse) {
+      .cursor-dot, .cursor-aura { display: none !important; }
     }
 
     /* ── APP VIEWPORT ── */
@@ -147,42 +110,42 @@
       z-index: 1;
       max-width: 1220px;
       margin: 0 auto;
-      padding: 32px 24px 75px;
+      padding: 24px 24px 70px;
     }
 
-    /* ── SPATIAL TELEMETRY CAPSULE ── */
+    /* ── APOGEE TOP TELEMETRY PILL ── */
     .top-telemetry {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 11px 24px;
-      background: rgba(18, 18, 24, 0.65);
-      border: var(--spatial-border);
+      padding: 10px 24px;
+      background: var(--apogee-nav-glass);
+      border: 1px solid var(--apogee-border);
       border-radius: var(--radius-full);
-      backdrop-filter: var(--spatial-glass-blur);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.8), var(--glass-top-rim);
-      margin-bottom: 36px;
-      font-size: 0.76rem;
+      backdrop-filter: blur(17px);
+      margin-bottom: 32px;
+      font-size: 0.78rem;
       font-family: var(--font-mono);
-      letter-spacing: 0.6px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
     }
     .telemetry-node {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--silver);
+      color: var(--apogee-txt-secondary);
     }
     .status-pulse-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #ffffff;
-      box-shadow: 0 0 12px #ffffff;
-      animation: shadowPulse 2.4s ease-in-out infinite alternate;
+      box-shadow: 0 0 10px #ffffff;
+      animation: pulseBlink 2s ease-in-out infinite alternate;
     }
-    @keyframes shadowPulse {
+    @keyframes pulseBlink {
       0% { opacity: 0.4; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1.15); box-shadow: 0 0 16px #ffffff; }
+      100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 15px #ffffff; }
     }
     .telemetry-tags {
       display: flex;
@@ -190,17 +153,17 @@
       gap: 20px;
     }
     .telemetry-tag {
-      color: var(--graphite);
+      color: var(--apogee-txt-muted);
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .telemetry-tag span { color: var(--pure-white); font-weight: 500; }
+    .telemetry-tag span { color: #ffffff; font-weight: 500; }
 
     /* ── HERO BANNER ── */
     header {
       text-align: center;
-      padding: 20px 0 40px;
+      padding: 16px 0 36px;
       position: relative;
     }
 
@@ -208,114 +171,109 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 7px 22px;
-      border-radius: var(--radius-full);
-      background: rgba(22, 22, 30, 0.7);
-      border: var(--spatial-border);
-      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.85), var(--glass-top-rim);
-      margin-bottom: 24px;
-      backdrop-filter: var(--spatial-glass-blur);
+      padding: 6px 20px;
+      border-radius: var(--radius-pill);
+      background: var(--apogee-nav-glass);
+      border: 1px solid var(--apogee-border);
+      backdrop-filter: blur(17px);
+      margin-bottom: 22px;
     }
     .brand-icon-core {
       width: 22px;
       height: 22px;
-      border-radius: 7px;
-      background: linear-gradient(180deg, #ffffff, #9ca3af);
-      color: #000;
+      border-radius: 6px;
+      background: #E9E9E9;
+      color: #0A0707;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.75rem;
       font-weight: 900;
-      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.35);
     }
     .brand-title {
       font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 0.92rem;
-      letter-spacing: 1.3px;
-      color: var(--txt-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.8px;
+      color: #ffffff;
     }
     .brand-title em {
       font-style: normal;
-      color: var(--graphite);
+      color: var(--apogee-txt-muted);
       margin-left: 2px;
     }
 
     h1.hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(2.6rem, 6.4vw, 4.8rem);
-      font-weight: 800;
-      letter-spacing: -2.2px;
-      line-height: 1.04;
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      font-weight: 400;
+      letter-spacing: -1.5px;
+      line-height: 0.98;
       margin-bottom: 18px;
-      background: linear-gradient(180deg, #ffffff 35%, #a1a1aa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.95));
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
     }
 
     .hero-subtitle {
-      max-width: 680px;
-      margin: 0 auto 36px;
-      font-size: 1.06rem;
-      color: var(--txt-secondary);
-      line-height: 1.7;
-      font-weight: 400;
+      max-width: 640px;
+      margin: 0 auto 34px;
+      font-size: 1.1rem;
+      color: var(--apogee-txt-secondary);
+      line-height: 1.6;
+      font-weight: 450;
     }
 
-    /* ── SPATIAL PRESET CHIPS ── */
+    /* ── PRESETS CHIPS ── */
     .preset-strip {
       display: flex;
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
     .preset-chip {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 22px;
-      border-radius: var(--radius-full);
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: rgba(20, 20, 26, 0.65);
-      border: var(--spatial-border);
-      color: var(--txt-secondary);
+      padding: 8px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 450;
+      background: var(--apogee-nav-glass);
+      border: 1px solid var(--apogee-border);
+      color: var(--apogee-txt-secondary);
       cursor: pointer;
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-      backdrop-filter: var(--spatial-glass-blur);
-      box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.8), var(--glass-top-rim);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(17px);
     }
     .preset-chip:hover {
-      border-color: rgba(255, 255, 255, 0.35);
-      color: var(--pure-white);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 16px 35px -6px rgba(0, 0, 0, 0.95), var(--glass-top-rim);
     }
     .preset-chip.active {
-      background: #ffffff;
-      border-color: #ffffff;
-      color: #000000;
-      box-shadow: 0 12px 35px rgba(255, 255, 255, 0.3), 0 20px 50px rgba(0, 0, 0, 0.9);
+      background: #E9E9E9;
+      border-color: #E9E9E9;
+      color: #0A0707;
+      font-weight: 500;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
     }
 
-    /* ── VISIONOS SPATIAL FLOATING TAB SLAB ── */
+    /* ── APOGEE MASTER TAB PILL ── */
     .tab-deck-container {
       display: flex;
       justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 38px;
     }
     .tab-deck {
       position: relative;
       display: inline-flex;
-      padding: 6px;
-      background: rgba(14, 14, 20, 0.7);
-      border-radius: var(--radius-full);
-      border: var(--spatial-border);
-      backdrop-filter: var(--spatial-glass-blur);
-      box-shadow: var(--shadow-3d-xl), var(--glass-top-rim);
+      padding: 4px;
+      background: var(--apogee-nav-glass);
+      border-radius: 13px;
+      border: 1px solid var(--apogee-border);
+      backdrop-filter: blur(17px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
     }
     .tab-btn {
       position: relative;
@@ -323,108 +281,61 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 13px 38px;
+      padding: 12px 34px;
       border: none;
       background: none;
-      color: var(--txt-secondary);
-      font-family: var(--font-display);
+      color: var(--apogee-txt-secondary);
+      font-family: var(--font-body);
       font-size: 0.95rem;
-      font-weight: 600;
-      border-radius: var(--radius-full);
+      font-weight: 450;
+      border-radius: var(--radius-pill);
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .tab-btn.active {
-      color: #000000;
-      background: #ffffff;
-      box-shadow: 0 12px 28px rgba(255, 255, 255, 0.32), 0 16px 40px rgba(0, 0, 0, 0.9);
-      font-weight: 700;
+      color: #0A0707;
+      background: #E9E9E9;
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     }
     .tab-btn:not(.active):hover {
-      color: var(--pure-white);
-      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
     }
 
     /* ── PANELS ── */
     .view-panel {
       display: none;
-      animation: spatialPanelIn 0.44s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: apogeeFade 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .view-panel.active { display: block; }
-    @keyframes spatialPanelIn {
-      from { opacity: 0; transform: translateY(26px) scale(0.985); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes apogeeFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── REACT-VISION × SHADOW-3D MASTER GLASS CARD ── */
+    /* ── APOGEE MASTER GLASS CARD ── */
     .cyber-card {
       position: relative;
-      background: var(--bg-spatial);
-      border-radius: var(--radius-lg);
-      border: var(--spatial-border);
-      backdrop-filter: var(--spatial-glass-blur);
-      padding: 40px;
-      box-shadow: var(--shadow-3d-card);
+      background: var(--apogee-card-glass);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--apogee-border);
+      backdrop-filter: blur(20px);
+      padding: 38px;
+      box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       overflow: hidden;
-      transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+      transition: border-color 0.3s ease;
     }
     .cyber-card:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 50px 105px -20px rgba(0, 0, 0, 0.98), 0 28px 50px -15px rgba(0, 0, 0, 0.9), var(--glass-top-rim);
+      border-color: var(--apogee-border-focus);
     }
-
-    /* Conic Rotating Ethereal Rim Beam */
-    .cyber-card::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: var(--radius-lg);
-      padding: 1.5px;
-      background: conic-gradient(
-        from var(--beam-angle, 0deg) at 50% 50%,
-        transparent 0%,
-        transparent 70%,
-        rgba(255, 255, 255, 0.5) 88%,
-        #ffffff 94%,
-        transparent 100%
-      );
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      animation: border-rotate 9s linear infinite;
-      opacity: 0.6;
-    }
-    @property --beam-angle {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: false;
-    }
-    @keyframes border-rotate {
-      0% { --beam-angle: 0deg; }
-      100% { --beam-angle: 360deg; }
-    }
-
-    /* Spatial HUD Reticle Corners */
-    .hud-corner {
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      border-color: rgba(255, 255, 255, 0.4);
-      pointer-events: none;
-      opacity: 0.65;
-    }
-    .hud-tl { top: 12px; left: 12px; border-top: 1.5px solid; border-left: 1.5px solid; }
-    .hud-tr { top: 12px; right: 12px; border-top: 1.5px solid; border-right: 1.5px solid; }
-    .hud-bl { bottom: 12px; left: 12px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
-    .hud-br { bottom: 12px; right: 12px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
 
     /* ── CARD TOPBAR ── */
     .card-topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 32px;
+      margin-bottom: 30px;
       padding-bottom: 18px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
@@ -433,11 +344,11 @@
       align-items: center;
       gap: 12px;
       font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 1.2px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
-      color: var(--txt-primary);
+      color: #ffffff;
     }
     .panel-badge-icon {
       width: 32px;
@@ -447,12 +358,11 @@
       align-items: center;
       justify-content: center;
       font-size: 1rem;
-      background: rgba(30, 30, 38, 0.7);
-      border: var(--spatial-border);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7), var(--glass-top-rim);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--apogee-border);
     }
 
-    /* ── SPATIAL TELEMETRY TILES ── */
+    /* ── APOGEE STAT TILES (REVENUE CARD STYLE) ── */
     .telemetry-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -463,29 +373,26 @@
     @media (max-width: 520px) { .telemetry-row { grid-template-columns: 1fr; } }
 
     .metric-card {
-      background: rgba(22, 22, 28, 0.65);
-      border: var(--spatial-border);
-      border-radius: var(--radius-md);
+      background: var(--apogee-card-glass);
+      border: 1px solid var(--apogee-border);
+      border-radius: 18px;
       padding: 18px 20px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: var(--spatial-glass-blur);
-      box-shadow: 0 18px 40px -8px rgba(0, 0, 0, 0.88), var(--glass-top-rim);
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 6px;
+      backdrop-filter: blur(20px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
     }
     .metric-card:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-3px);
-      box-shadow: 0 26px 55px -10px rgba(0, 0, 0, 0.98), var(--glass-top-rim);
+      border-color: var(--apogee-border-focus);
+      transform: translateY(-2px);
     }
     .metric-lbl {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--graphite);
+      letter-spacing: 0.6px;
+      color: var(--apogee-txt-secondary);
       font-family: var(--font-mono);
       display: flex;
       justify-content: space-between;
@@ -493,29 +400,28 @@
     }
     .metric-val {
       font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--pure-white);
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.1;
     }
     .metric-val span {
       font-size: 0.8rem;
       font-weight: 400;
-      color: var(--graphite);
+      color: var(--apogee-cents-dim);
       margin-left: 4px;
     }
     .metric-meter {
       height: 4px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 99px;
       overflow: hidden;
-      margin-top: 4px;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+      margin-top: 6px;
     }
     .metric-meter-bar {
       height: 100%;
       border-radius: 99px;
       background: #ffffff;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
       transition: width 0.4s ease;
     }
 
@@ -523,12 +429,12 @@
     .workspace-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 34px;
-      margin-bottom: 30px;
+      gap: 32px;
+      margin-bottom: 28px;
     }
     @media (max-width: 820px) { .workspace-grid { grid-template-columns: 1fr; } }
 
-    /* ── 3D PERSPECTIVE IMAGE DOCK ── */
+    /* ── IMAGE DOCK & DROPZONE ── */
     .image-dock {
       display: flex;
       flex-direction: column;
@@ -536,45 +442,39 @@
     }
     .dock-label {
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: var(--silver);
+      letter-spacing: 0.6px;
+      color: var(--apogee-txt-secondary);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .dock-sample-btn {
       background: rgba(255, 255, 255, 0.08);
-      border: var(--spatial-border);
-      color: var(--silver);
-      border-radius: var(--radius-full);
+      border: 1px solid var(--apogee-border);
+      color: #ffffff;
+      border-radius: var(--radius-pill);
       padding: 4px 14px;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-family: var(--font-mono);
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), var(--glass-top-rim);
     }
     .dock-sample-btn:hover {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      box-shadow: 0 8px 22px rgba(255, 255, 255, 0.35);
+      background: #E9E9E9;
+      color: #0A0707;
+      border-color: #E9E9E9;
     }
 
-    .dropzone-3d-wrap {
-      perspective: 1100px;
-      transform-style: preserve-3d;
-    }
     .dropzone-card {
       position: relative;
       min-height: 295px;
-      border: 1.5px dashed rgba(255, 255, 255, 0.2);
-      border-radius: var(--radius-md);
-      background: rgba(14, 14, 18, 0.6);
-      backdrop-filter: var(--spatial-glass-blur);
+      border: 1.5px dashed rgba(255, 255, 255, 0.22);
+      border-radius: 20px;
+      background: rgba(10, 7, 7, 0.4);
+      backdrop-filter: blur(17px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -583,33 +483,23 @@
       text-align: center;
       cursor: pointer;
       overflow: hidden;
-      box-shadow: var(--shadow-3d-card);
-      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s, transform 0.16s ease-out;
-      transform-style: preserve-3d;
+      transition: border-color 0.3s, background 0.3s;
     }
     .dropzone-card:hover, .dropzone-card.drag-over {
-      border-color: rgba(255, 255, 255, 0.7);
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 45px 95px -15px rgba(0, 0, 0, 0.98), 0 0 40px rgba(255, 255, 255, 0.12);
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
     }
     .dropzone-card input[type=file] {
       position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; z-index: 10;
     }
 
-    .sheen-layer {
-      position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.14), transparent 55%);
-      opacity: 0; transition: opacity 0.3s; z-index: 5;
-    }
-    .dropzone-card:hover .sheen-layer { opacity: 1; }
-
     .preview-image-node {
       max-width: 100%;
       max-height: 220px;
-      border-radius: var(--radius-sm);
+      border-radius: 12px;
       object-fit: contain;
-      border: var(--spatial-border);
-      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95);
+      border: 1px solid var(--apogee-border);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
       display: none;
       position: relative;
       z-index: 6;
@@ -622,44 +512,37 @@
       z-index: 3;
     }
     .dz-holo-icon {
-      width: 66px;
-      height: 66px;
-      border-radius: 18px;
-      background: rgba(26, 26, 34, 0.8);
-      border: var(--spatial-border);
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--apogee-border);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.8rem;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85), var(--glass-top-rim);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .dropzone-card:hover .dz-holo-icon {
-      transform: scale(1.08) translateY(-2px);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.95), 0 0 24px rgba(255, 255, 255, 0.2);
     }
     .dz-main-text {
-      font-size: 0.96rem;
-      font-weight: 600;
-      color: var(--txt-primary);
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: #ffffff;
     }
     .dz-sub-text {
-      font-size: 0.78rem;
-      color: var(--graphite);
+      font-size: 0.8rem;
+      color: var(--apogee-txt-secondary);
       font-family: var(--font-mono);
     }
     .carrier-filename-tag {
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      color: var(--pure-white);
+      font-size: 0.78rem;
+      color: #ffffff;
       margin-top: 8px;
       padding: 4px 14px;
-      border-radius: var(--radius-full);
-      background: rgba(26, 26, 34, 0.9);
-      border: var(--spatial-border);
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--apogee-border);
       display: none;
       z-index: 6;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
     }
 
     /* Bitplane Toolstrip */
@@ -668,34 +551,32 @@
       align-items: center;
       justify-content: space-between;
       padding: 9px 16px;
-      background: rgba(18, 18, 24, 0.7);
-      border: var(--spatial-border);
-      border-radius: var(--radius-sm);
-      font-size: 0.74rem;
+      background: rgba(10, 7, 7, 0.5);
+      border: 1px solid var(--apogee-border);
+      border-radius: 12px;
+      font-size: 0.76rem;
       font-family: var(--font-mono);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), var(--glass-top-rim);
     }
     .bitplane-pills { display: flex; gap: 6px; }
     .bp-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: var(--spatial-border);
-      color: var(--silver);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--apogee-border);
+      color: var(--apogee-txt-secondary);
       padding: 4px 10px;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-family: var(--font-mono);
       transition: all 0.2s;
     }
     .bp-btn:hover, .bp-btn.active {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      font-weight: 700;
-      box-shadow: 0 2px 12px rgba(255, 255, 255, 0.35);
+      background: #E9E9E9;
+      color: #0A0707;
+      border-color: #E9E9E9;
+      font-weight: 600;
     }
 
-    /* ── SPATIAL INPUTS ── */
+    /* ── HIGH VISIBILITY INPUTS & FORM CONTROLS ── */
     .control-column {
       display: flex;
       flex-direction: column;
@@ -704,58 +585,63 @@
     .field-group {
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 8px;
     }
     .field-label {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: var(--silver);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--apogee-txt-secondary);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .field-label-tag {
-      color: var(--graphite);
+      color: var(--apogee-txt-muted);
       font-weight: 400;
-      text-transform: none;
+      font-size: 0.78rem;
     }
 
     textarea.cyber-input, input[type=text].cyber-input, input[type=password].cyber-input, select.cyber-input {
       width: 100%;
-      background: rgba(10, 10, 14, 0.75);
-      border: var(--spatial-border);
-      border-radius: var(--radius-sm);
-      color: var(--txt-primary);
+      background: rgba(10, 7, 7, 0.55);
+      border: 1px solid var(--apogee-border);
+      border-radius: 12px;
+      color: #ffffff;
       font-family: var(--font-body);
-      font-size: 0.94rem;
+      font-size: 0.95rem;
+      font-weight: 450;
       padding: 15px 18px;
       outline: none;
       transition: all 0.25s ease;
-      box-shadow: var(--shadow-3d-sunken);
-      backdrop-filter: var(--spatial-glass-blur);
+      backdrop-filter: blur(17px);
     }
     textarea.cyber-input {
       min-height: 140px;
       resize: vertical;
       font-family: var(--font-mono);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       line-height: 1.6;
     }
     textarea.cyber-input:focus, input.cyber-input:focus, select.cyber-input:focus {
-      border-color: rgba(255, 255, 255, 0.5);
-      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 255, 255, 0.12);
-      background: rgba(14, 14, 20, 0.85);
+      border-color: #ffffff;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+      background: rgba(10, 7, 7, 0.75);
+    }
+    textarea.cyber-input::placeholder, input.cyber-input::placeholder {
+      color: var(--apogee-txt-muted);
     }
     select.cyber-input { cursor: pointer; }
+    select.cyber-input option {
+      background: #080A19;
+      color: #ffffff;
+    }
 
     .password-input-wrap { position: relative; }
     .password-input-wrap input { padding-right: 48px; }
     .eye-toggle-btn {
       position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; color: var(--graphite); cursor: pointer; font-size: 1.1rem;
+      background: none; border: none; color: var(--apogee-txt-muted); cursor: pointer; font-size: 1.1rem;
       padding: 4px; transition: color 0.2s;
     }
     .eye-toggle-btn:hover { color: #ffffff; }
@@ -764,22 +650,21 @@
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px;
     }
     .strength-segment {
-      height: 3px; background: rgba(255, 255, 255, 0.08); border-radius: 2px; transition: background 0.3s;
+      height: 3px; background: rgba(255, 255, 255, 0.12); border-radius: 2px; transition: background 0.3s;
     }
     .strength-segment.weak { background: #ef4444; }
     .strength-segment.fair { background: #f59e0b; }
-    .strength-segment.strong { background: var(--pure-white); box-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
+    .strength-segment.strong { background: #ffffff; box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
     .strength-caption {
-      font-family: var(--font-mono); font-size: 0.72rem; color: var(--graphite); margin-top: 5px;
+      font-size: 0.76rem; color: var(--apogee-txt-muted); margin-top: 5px;
     }
 
-    /* ── SPATIAL ACCORDION ── */
+    /* ── ADVANCED OPTIONS ACCORDION ── */
     .accordion-box {
-      border: var(--spatial-border);
-      border-radius: var(--radius-sm);
-      background: rgba(14, 14, 18, 0.6);
-      backdrop-filter: var(--spatial-glass-blur);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), var(--glass-top-rim);
+      border: 1px solid var(--apogee-border);
+      border-radius: 12px;
+      background: rgba(10, 7, 7, 0.4);
+      backdrop-filter: blur(17px);
       margin-top: 10px;
       overflow: hidden;
       transition: border-color 0.25s;
@@ -792,171 +677,128 @@
       align-items: center;
       cursor: pointer;
       user-select: none;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--silver);
-      font-weight: 600;
+      font-size: 0.84rem;
+      color: var(--apogee-txt-secondary);
+      font-weight: 500;
     }
-    .accordion-trigger:hover { color: var(--pure-white); }
+    .accordion-trigger:hover { color: #ffffff; }
     .accordion-chevron { transition: transform 0.3s ease; font-size: 0.8rem; }
     .accordion-chevron.expanded { transform: rotate(180deg); }
     .accordion-content {
       display: none;
       padding: 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(10, 10, 14, 0.8);
-      animation: spatialPanelIn 0.25s ease;
+      background: rgba(8, 10, 25, 0.6);
+      animation: apogeeFade 0.25s ease;
     }
     .accordion-content.expanded { display: block; }
 
     .switch-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
     .switch-row:last-child { border-bottom: none; }
-    .switch-info-title { font-size: 0.86rem; font-weight: 600; color: var(--txt-primary); }
-    .switch-info-sub { font-size: 0.74rem; color: var(--graphite); }
+    .switch-info-title { font-size: 0.88rem; font-weight: 500; color: #ffffff; }
+    .switch-info-sub { font-size: 0.76rem; color: var(--apogee-txt-muted); }
 
     .cyber-toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
     .cyber-toggle input { opacity: 0; width: 0; height: 0; }
     .toggle-slider {
-      position: absolute; inset: 0; background: rgba(28, 28, 36, 0.8);
-      border: var(--spatial-border); border-radius: 99px; cursor: pointer;
-      transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+      position: absolute; inset: 0; background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--apogee-border); border-radius: 99px; cursor: pointer;
+      transition: 0.28s ease;
     }
     .toggle-slider::before {
       content: ''; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px;
-      background: #71717a; border-radius: 50%; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+      background: #ffffff; border-radius: 50%; transition: 0.28s ease;
     }
     .cyber-toggle input:checked + .toggle-slider {
-      background: #ffffff; border-color: #ffffff; box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
+      background: #E9E9E9; border-color: #E9E9E9;
     }
     .cyber-toggle input:checked + .toggle-slider::before {
-      transform: translateX(20px); background: #000000;
+      transform: translateX(20px); background: #0A0707;
     }
 
-    /* ── VISIONOS VOLUMETRIC BUTTONS ── */
+    /* ── APOGEE EXACT HERO BUTTONS (§5.7 SPEC) ── */
     .button-rack {
       display: flex; justify-content: flex-end; align-items: center; gap: 14px;
-      margin-top: 34px; flex-wrap: wrap;
+      margin-top: 32px; flex-wrap: wrap;
     }
-    .action-btn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 36px;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.4px;
+    .btn-apogee-primary {
+      height: 51px;
+      padding: 0 27px;
+      background: var(--apogee-btn-fill);
+      color: var(--apogee-btn-txt);
+      border-radius: var(--radius-btn);
+      font-size: 15.5px;
+      font-weight: 450;
+      line-height: 15.5px;
       border: none;
       cursor: pointer;
-      overflow: hidden;
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
       white-space: nowrap;
     }
-    .action-btn:disabled {
-      opacity: 0.35; cursor: not-allowed; transform: none !important; box-shadow: none !important;
+    .btn-apogee-primary:hover:not(:disabled) {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .btn-apogee-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
     }
 
-    /* Primary: Solid Pearl-White with 3D Heavy Shadow */
-    .btn-shadow-primary {
-      background: #ffffff;
-      color: #000000;
-      box-shadow: var(--shadow-3d-btn), 0 0 22px rgba(255, 255, 255, 0.25);
+    .btn-apogee-secondary {
+      height: 51px;
+      padding: 0 27px;
+      border-radius: var(--radius-btn);
+      border: 1px solid #ffffff;
+      color: #ffffff;
+      font-size: 15.5px;
+      font-weight: 450;
+      line-height: 15.5px;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
     }
-    .btn-shadow-primary:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 24px 50px -8px rgba(0, 0, 0, 0.96), 0 0 32px rgba(255, 255, 255, 0.4);
-      background: #f8fafc;
-    }
-    .btn-shadow-primary:active:not(:disabled) {
-      transform: translateY(1px);
-      box-shadow: 0 8px 18px -4px rgba(0, 0, 0, 0.9);
-    }
-
-    /* Secondary: Dark Carbon Spatial Glass */
-    .btn-shadow-secondary {
-      background: rgba(22, 22, 28, 0.7);
-      border: var(--spatial-border);
-      color: var(--silver);
-      box-shadow: 0 12px 28px -5px rgba(0, 0, 0, 0.85), var(--glass-top-rim);
-      backdrop-filter: var(--spatial-glass-blur);
-    }
-    .btn-shadow-secondary:hover:not(:disabled) {
-      border-color: rgba(255, 255, 255, 0.35);
-      color: var(--pure-white);
-      transform: translateY(-2px);
-      box-shadow: 0 18px 38px -8px rgba(0, 0, 0, 0.95), var(--glass-top-rim);
+    .btn-apogee-secondary:hover:not(:disabled) {
+      opacity: 0.8;
+      background: rgba(255, 255, 255, 0.05);
     }
 
-    /* ── ORIGINKIT 20: SPATIAL GYRO LOADER ── */
+    /* ── LOADER ── */
     .quantum-loader-wrap {
-      display: none; padding: 26px 0; margin-top: 20px; animation: spatialPanelIn 0.3s ease;
+      display: none; padding: 24px 0; margin-top: 18px; animation: apogeeFade 0.3s ease;
     }
     .quantum-loader-wrap.active { display: block; }
-    
     .quantum-stage {
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
     }
-    .gyro-rings {
-      position: relative; width: 62px; height: 62px;
-      transform-style: preserve-3d; perspective: 400px;
-    }
-    .ring-orbit {
-      position: absolute; inset: 0; border-radius: 50%; border: 2px solid transparent;
-    }
-    .ring-1 {
-      border-top-color: #ffffff; border-bottom-color: #ffffff;
-      animation: gyroRotate1 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
-    }
-    .ring-2 {
-      border-left-color: #71717a; border-right-color: #71717a;
-      animation: gyroRotate2 1.6s cubic-bezier(0.5, 0, 0.5, 1) infinite reverse;
-    }
-    .ring-core {
-      position: absolute; inset: 23px; border-radius: 50%;
-      background: #ffffff; box-shadow: 0 0 22px #ffffff;
-      animation: corePulse 1s ease-in-out infinite alternate;
-    }
-    @keyframes gyroRotate1 {
-      0% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg); }
-      100% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg); }
-    }
-    @keyframes gyroRotate2 {
-      0% { transform: rotateX(70deg) rotateY(45deg) rotateZ(0deg); }
-      100% { transform: rotateX(70deg) rotateY(45deg) rotateZ(360deg); }
-    }
-    @keyframes corePulse {
-      from { transform: scale(0.85); opacity: 0.8; }
-      to { transform: scale(1.15); opacity: 1; }
-    }
-
     .loader-bitstream {
-      font-family: var(--font-mono); font-size: 0.78rem; color: var(--silver); letter-spacing: 1px;
+      font-family: var(--font-mono); font-size: 0.8rem; color: #ffffff; letter-spacing: 0.6px;
     }
     .loader-progress-track {
-      width: 100%; max-width: 480px; height: 5px; background: rgba(255, 255, 255, 0.08);
-      border-radius: 99px; overflow: hidden; margin-top: 6px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+      width: 100%; max-width: 460px; height: 5px; background: rgba(255, 255, 255, 0.12);
+      border-radius: 99px; overflow: hidden; margin-top: 4px;
     }
     .loader-progress-fill {
       height: 100%; width: 0%; border-radius: 99px; background: #ffffff;
-      box-shadow: 0 0 12px #ffffff; transition: width 0.25s ease;
+      box-shadow: 0 0 10px #ffffff; transition: width 0.25s ease;
     }
 
     /* ── RESULT TERMINAL ── */
     .result-terminal {
-      display: none; margin-top: 32px; padding: 28px; background: rgba(16, 16, 22, 0.8);
-      border: var(--spatial-border); border-radius: var(--radius-md);
-      backdrop-filter: var(--spatial-glass-blur);
-      box-shadow: var(--shadow-3d-xl), var(--glass-top-rim);
-      animation: spatialPanelIn 0.35s ease;
+      display: none; margin-top: 32px; padding: 28px; background: rgba(10, 7, 7, 0.7);
+      border: 1px solid var(--apogee-border); border-radius: 20px;
+      backdrop-filter: blur(20px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      animation: apogeeFade 0.35s ease;
     }
     .result-terminal.active { display: block; }
     
@@ -965,45 +807,39 @@
     }
     .terminal-status-icon {
       width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center;
-      justify-content: center; font-size: 1.2rem; flex-shrink: 0;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
-    }
-    .terminal-status-icon.success {
-      background: rgba(32, 32, 42, 0.8); border: var(--spatial-border); color: #ffffff;
-    }
-    .terminal-status-icon.error {
-      background: rgba(32, 32, 42, 0.8); border: 1px solid rgba(239, 68, 68, 0.4); color: #ef4444;
+      justify-content: center; font-size: 1.2rem; flex-shrink: 0; background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--apogee-border); color: #ffffff;
     }
     .terminal-title {
-      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--txt-primary);
+      font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; color: #ffffff;
     }
     .terminal-desc {
-      font-size: 0.8rem; color: var(--graphite); font-family: var(--font-mono);
+      font-size: 0.84rem; color: var(--apogee-txt-secondary); font-family: var(--font-body);
     }
 
     .secret-payload-box {
-      background: rgba(8, 8, 12, 0.85); border: var(--spatial-border); border-radius: var(--radius-sm);
-      padding: 20px; font-family: var(--font-mono); font-size: 0.92rem; color: #ffffff;
-      white-space: pre-wrap; word-break: break-all; max-height: 280px; overflow-y: auto; line-height: 1.65;
-      box-shadow: var(--shadow-3d-sunken);
+      background: rgba(8, 10, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px; padding: 20px; font-family: var(--font-mono); font-size: 0.94rem;
+      color: #ffffff; white-space: pre-wrap; word-break: break-all; max-height: 280px;
+      overflow-y: auto; line-height: 1.65;
     }
 
     .meta-metrics-grid { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
     .meta-pill {
-      background: rgba(24, 24, 32, 0.8); border: var(--spatial-border); border-radius: var(--radius-full);
-      padding: 5px 16px; font-size: 0.74rem; font-family: var(--font-mono); color: var(--graphite);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), var(--glass-top-rim);
+      background: rgba(255, 255, 255, 0.08); border: 1px solid var(--apogee-border);
+      border-radius: var(--radius-pill); padding: 5px 16px; font-size: 0.76rem;
+      font-family: var(--font-mono); color: var(--apogee-txt-secondary);
     }
-    .meta-pill span { color: var(--pure-white); font-weight: 600; }
+    .meta-pill span { color: #ffffff; font-weight: 600; }
 
     /* ── ARCHITECTURE SECTION ── */
     .specs-section { margin-top: 85px; }
     .section-headline {
-      font-family: var(--font-display); font-size: 1.65rem; font-weight: 800; letter-spacing: -0.6px;
-      margin-bottom: 30px; display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-display); font-size: 1.65rem; font-weight: 500; letter-spacing: -0.6px;
+      margin-bottom: 28px; display: flex; align-items: center; gap: 14px; color: #ffffff;
     }
     .section-headline::after {
-      content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.25), transparent);
+      content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.15);
     }
 
     .specs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -1011,36 +847,34 @@
     @media (max-width: 580px) { .specs-grid { grid-template-columns: 1fr; } }
     
     .spec-card {
-      background: var(--bg-spatial);
-      border: var(--spatial-border);
-      border-radius: var(--radius-md);
-      padding: 28px 24px;
-      backdrop-filter: var(--spatial-glass-blur);
-      box-shadow: var(--shadow-3d-card);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
+      background: var(--apogee-card-glass);
+      border: 1px solid var(--apogee-border);
+      border-radius: 20px;
+      padding: 26px 22px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      transition: all 0.28s ease;
     }
     .spec-card:hover {
-      border-color: rgba(255, 255, 255, 0.35);
-      transform: translateY(-5px);
-      box-shadow: 0 38px 85px -15px rgba(0, 0, 0, 0.98), var(--glass-top-rim);
+      border-color: var(--apogee-border-focus);
+      transform: translateY(-3px);
     }
     .spec-num {
-      font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: #ffffff;
+      font-family: var(--font-mono); font-size: 1.6rem; font-weight: 600; color: #ffffff;
       opacity: 0.35; margin-bottom: 12px;
     }
     .spec-title {
-      font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--txt-primary);
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; margin-bottom: 8px; color: #ffffff;
     }
-    .spec-body { font-size: 0.82rem; color: var(--graphite); line-height: 1.65; }
+    .spec-body { font-size: 0.84rem; color: var(--apogee-txt-secondary); line-height: 1.6; }
 
     /* ── FOOTER ── */
     footer {
-      margin-top: 95px; padding-top: 38px; border-top: 1px solid rgba(255, 255, 255, 0.08);
-      text-align: center; font-size: 0.82rem; color: var(--graphite); font-family: var(--font-mono);
+      margin-top: 90px; padding-top: 36px; border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center; font-size: 0.84rem; color: var(--apogee-txt-muted); font-family: var(--font-mono);
     }
-    footer a { color: #ffffff; text-decoration: none; transition: opacity 0.2s; }
-    footer a:hover { opacity: 0.7; text-decoration: underline; }
+    footer a { color: #ffffff; text-decoration: underline; transition: opacity 0.2s; }
+    footer a:hover { opacity: 0.7; }
 
     /* ── TOAST RACK ── */
     .toast-rack {
@@ -1048,10 +882,10 @@
     }
     .cyber-toast {
       display: flex; align-items: center; gap: 12px; padding: 14px 22px;
-      background: rgba(22, 22, 28, 0.85); border: var(--spatial-border); border-radius: var(--radius-sm);
-      backdrop-filter: var(--spatial-glass-blur); font-size: 0.85rem; font-weight: 500;
-      box-shadow: var(--shadow-3d-xl), var(--glass-top-rim); animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      min-width: 280px; max-width: 420px;
+      background: rgba(10, 7, 7, 0.9); border: 1px solid var(--apogee-border-focus);
+      border-radius: 12px; backdrop-filter: blur(24px); font-size: 0.86rem; font-weight: 450;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8); animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      min-width: 280px; max-width: 420px; color: #ffffff;
     }
     .cyber-toast.exit { animation: toastOut 0.28s forwards ease; }
     @keyframes toastIn {
@@ -1065,21 +899,22 @@
     .toast-indicator.err { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-track { background: var(--apogee-bg); }
     ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 99px; }
     ::-webkit-scrollbar-thumb:hover { background: #ffffff; }
   </style>
 </head>
 <body>
 
-  <!-- SPATIAL CURSOR -->
+  <!-- CURSOR -->
   <div class="cursor-dot" id="cDot"></div>
   <div class="cursor-aura" id="cAura"></div>
 
-  <!-- SPATIAL DEPTH CANVAS -->
-  <canvas id="pulse-canvas"></canvas>
-  <div class="ambient-shadow-light"></div>
-  <div class="shadow-3d-vignette"></div>
+  <!-- APOGEE CLOUDFRONT VIDEO BACKGROUND -->
+  <video class="apogee-video-bg" 
+         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_092641_de52eb87-daf2-41db-92cb-7a56eae012a5.mp4" 
+         autoplay loop muted playsinline></video>
+  <div class="apogee-overlay-tint"></div>
 
   <div class="app-viewport">
     
@@ -1087,24 +922,24 @@
     <div class="top-telemetry">
       <div class="telemetry-node">
         <div class="status-pulse-dot"></div>
-        <span>SPATIAL ENCLAVE // REACT-VISION × SHADOW-3D</span>
+        <span>APOGEE ENCLAVE // LOCAL SANDBOX</span>
       </div>
       <div class="telemetry-tags">
-        <div class="telemetry-tag">MODE: <span>SPATIAL GLASS</span></div>
+        <div class="telemetry-tag">THEME: <span>APOGEE COSMIC</span></div>
         <div class="telemetry-tag">CIPHER: <span>AES-256-GCM</span></div>
-        <div class="telemetry-tag">ISOLATION: <span>100% CLIENT</span></div>
+        <div class="telemetry-tag">MODULATION: <span>LSB MULTI-BIT</span></div>
       </div>
     </div>
 
     <!-- HERO HEADER -->
     <header>
       <div class="brand-pill">
-        <div class="brand-icon-core">S</div>
-        <div class="brand-title">STEGNO<em>VAULT</em></div>
+        <div class="brand-icon-core">A</div>
+        <div class="brand-title">APOGEE <em>STEGNO</em></div>
       </div>
-      <h1 class="hero-headline">Spatial Vision &amp; 3D Shadow<br>Steganography Suite</h1>
+      <h1 class="hero-headline">Elevate your essential data<br>to new heights</h1>
       <p class="hero-subtitle">
-        Inject authenticated, military-grade encrypted payloads invisibly into PNG &amp; BMP carriers using adaptive multi-channel LSB modulation. Zero server dependencies, 100% cryptographic isolation.
+        Inject authenticated, military-grade encrypted payloads invisibly into PNG &amp; BMP carriers using adaptive multi-channel LSB modulation. Zero server dependencies, 100% browser-side privacy.
       </p>
 
       <!-- PRESET PROTOCOL SELECTOR -->
@@ -1132,22 +967,18 @@
          ══════════════════════════════════════════ -->
     <div class="view-panel active" id="panel-enc">
       <div class="cyber-card">
-        <div class="hud-corner hud-tl"></div>
-        <div class="hud-corner hud-tr"></div>
-        <div class="hud-corner hud-bl"></div>
-        <div class="hud-corner hud-br"></div>
-
+        
         <div class="card-topbar">
           <div class="panel-badge">
             <div class="panel-badge-icon">🔏</div>
             <span>Carrier Inscription Module</span>
           </div>
-          <div style="font-family:var(--font-mono);font-size:0.76rem;color:var(--graphite)">
-            PROTOCOL: <strong style="color:var(--pure-white)">AES-256-GCM + PBKDF2 (100k)</strong>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--apogee-txt-secondary)">
+            CIPHER: <strong style="color:#ffffff">AES-256-GCM + PBKDF2 (100,000 ITERATIONS)</strong>
           </div>
         </div>
 
-        <!-- TELEMETRY TILES -->
+        <!-- REVENUE-STYLE STAT TILES -->
         <div class="telemetry-row">
           <div class="metric-card">
             <div class="metric-lbl">Total Capacity <span id="m-cap-avail">0 KB</span></div>
@@ -1174,36 +1005,33 @@
         <!-- 2-COLUMN WORKSPACE GRID -->
         <div class="workspace-grid">
           
-          <!-- LEFT: 3D Image Dock -->
+          <!-- LEFT: Cover Carrier Image -->
           <div class="image-dock">
             <div class="dock-label">
               <span>Cover Carrier Image (PNG / BMP)</span>
               <button class="dock-sample-btn" type="button" onclick="loadSampleCarrier('ei')">✨ Load Demo Carrier</button>
             </div>
 
-            <div class="dropzone-3d-wrap">
-              <div class="dropzone-card" id="edz"
-                   ondragover="handleDzOver(event,'edz')" 
-                   ondragleave="handleDzLeave('edz')" 
-                   ondrop="handleDzDrop(event,'ei','edz')">
-                <input type="file" id="ei" accept="image/png,image/bmp" onchange="processImageFile('ei','ep','edz','efn',true)"/>
-                
-                <div class="sheen-layer"></div>
-                <img id="ep" class="preview-image-node" alt="Cover Preview"/>
+            <div class="dropzone-card" id="edz"
+                 ondragover="handleDzOver(event,'edz')" 
+                 ondragleave="handleDzLeave('edz')" 
+                 ondrop="handleDzDrop(event,'ei','edz')">
+              <input type="file" id="ei" accept="image/png,image/bmp" onchange="processImageFile('ei','ep','edz','efn',true)"/>
+              
+              <img id="ep" class="preview-image-node" alt="Cover Preview"/>
 
-                <div class="dz-placeholder" id="edz-ph">
-                  <div class="dz-holo-icon">🖼️</div>
-                  <div class="dz-main-text">Drop Cover Carrier or Click to Mount</div>
-                  <div class="dz-sub-text">Lossless PNG / BMP • Visual Inscription</div>
-                </div>
-
-                <div class="carrier-filename-tag" id="efn"></div>
+              <div class="dz-placeholder" id="edz-ph">
+                <div class="dz-holo-icon">🖼️</div>
+                <div class="dz-main-text">Drop Cover Carrier or Click to Mount</div>
+                <div class="dz-sub-text">Lossless PNG / BMP • Visual Inscription</div>
               </div>
+
+              <div class="carrier-filename-tag" id="efn"></div>
             </div>
 
             <!-- CTF BITPLANE FORENSIC TOOLSTRIP -->
             <div class="bitplane-toolstrip" id="ebp-strip" style="display:none">
-              <span>FORENSIC BITPLANES:</span>
+              <span style="color:var(--apogee-txt-secondary)">FORENSIC BITPLANES:</span>
               <div class="bitplane-pills">
                 <button class="bp-btn active" onclick="previewBitPlane('all')">RGB</button>
                 <button class="bp-btn" onclick="previewBitPlane(0)">L0</button>
@@ -1244,7 +1072,7 @@
               <div class="strength-caption" id="eslbl">Enter key to lock payload with AES-256-GCM encryption</div>
             </div>
 
-            <!-- ADVANCED ACCORDION -->
+            <!-- ADVANCED OPTIONS -->
             <div class="accordion-box">
               <div class="accordion-trigger" onclick="toggleAccordion('eadv','echev')">
                 <span>⚙️ ADVANCED CIPHER &amp; BIT MODULATION</span>
@@ -1290,14 +1118,9 @@
           </div>
         </div>
 
-        <!-- GYRO LOADER -->
+        <!-- PROGRESS LOADER -->
         <div class="quantum-loader-wrap" id="epr">
           <div class="quantum-stage">
-            <div class="gyro-rings">
-              <div class="ring-orbit ring-1"></div>
-              <div class="ring-orbit ring-2"></div>
-              <div class="ring-core"></div>
-            </div>
             <div class="loader-bitstream" id="epl">COMPUTING AES-256 KEY MATRIX...</div>
             <div class="loader-progress-track">
               <div class="loader-progress-fill" id="epf"></div>
@@ -1308,28 +1131,28 @@
         <!-- RESULT TERMINAL -->
         <div class="result-terminal" id="eres">
           <div class="terminal-header">
-            <div class="terminal-status-icon success">✓</div>
+            <div class="terminal-status-icon">✓</div>
             <div>
               <div class="terminal-title">Carrier Inscription Complete!</div>
-              <div class="terminal-desc">Payload modulated into RGB channel LSBs with volumetric 3D preservation.</div>
+              <div class="terminal-desc">Payload modulated into RGB channel LSBs with pixel perfection.</div>
             </div>
           </div>
 
           <div style="display:flex;justify-content:center;margin:18px 0">
-            <canvas id="ecanvas" style="max-width:100%;max-height:300px;border-radius:var(--radius-sm);border:var(--spatial-border);box-shadow:var(--shadow-3d-xl)"></canvas>
+            <canvas id="ecanvas" style="max-width:100%;max-height:300px;border-radius:12px;border:1px solid var(--apogee-border);box-shadow:0 18px 45px rgba(0,0,0,0.85)"></canvas>
           </div>
 
           <div class="button-rack" style="margin-top:16px">
-            <button class="action-btn btn-shadow-secondary" onclick="copyCarrierSpecs()">📋 Copy Specs</button>
-            <button class="action-btn btn-shadow-primary" onclick="downloadCarrierPNG()">⬇️ Download Inscribed PNG</button>
+            <button class="btn-apogee-secondary" onclick="copyCarrierSpecs()">📋 Copy Specs</button>
+            <button class="btn-apogee-primary" onclick="downloadCarrierPNG()">⬇️ Download Inscribed PNG</button>
           </div>
         </div>
 
-        <!-- ACTION BUTTONS -->
+        <!-- ACTION BUTTONS (§5.7 SPEC) -->
         <div class="button-rack">
-          <button class="action-btn btn-shadow-secondary" onclick="resetEncodeForm()">🗑️ Reset</button>
-          <button class="action-btn btn-shadow-primary" id="enc-btn" onclick="executeEncoding()" disabled>
-            <span>⚡</span> Inscribe Secret Payload
+          <button class="btn-apogee-secondary" onclick="resetEncodeForm()">Reset</button>
+          <button class="btn-apogee-primary" id="enc-btn" onclick="executeEncoding()" disabled>
+            Inscribe Secret Payload
           </button>
         </div>
 
@@ -1341,18 +1164,14 @@
          ══════════════════════════════════════════ -->
     <div class="view-panel" id="panel-dec">
       <div class="cyber-card">
-        <div class="hud-corner hud-tl"></div>
-        <div class="hud-corner hud-tr"></div>
-        <div class="hud-corner hud-bl"></div>
-        <div class="hud-corner hud-br"></div>
-
+        
         <div class="card-topbar">
           <div class="panel-badge">
             <div class="panel-badge-icon">🔓</div>
             <span>Carrier Extraction &amp; Decrypt Module</span>
           </div>
-          <div style="font-family:var(--font-mono);font-size:0.76rem;color:var(--graphite)">
-            SCANNER: <strong style="color:var(--pure-white)">HEADER VERIFICATION ("STGN")</strong>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--apogee-txt-secondary)">
+            SCANNER: <strong style="color:#ffffff">HEADER VERIFICATION ("STGN")</strong>
           </div>
         </div>
 
@@ -1365,27 +1184,24 @@
               <span class="field-label-tag">Lossless Only</span>
             </div>
 
-            <div class="dropzone-3d-wrap">
-              <div class="dropzone-card" id="ddz"
-                   ondragover="handleDzOver(event,'ddz')" 
-                   ondragleave="handleDzLeave('ddz')" 
-                   ondrop="handleDzDrop(event,'di','ddz')">
-                <input type="file" id="di" accept="image/png,image/bmp" onchange="processImageFile('di','dp','ddz','dfn',false)"/>
-                
-                <div class="sheen-layer"></div>
-                <img id="dp" class="preview-image-node" alt="Decoded Preview"/>
+            <div class="dropzone-card" id="ddz"
+                 ondragover="handleDzOver(event,'ddz')" 
+                 ondragleave="handleDzLeave('ddz')" 
+                 ondrop="handleDzDrop(event,'di','ddz')">
+              <input type="file" id="di" accept="image/png,image/bmp" onchange="processImageFile('di','dp','ddz','dfn',false)"/>
+              
+              <img id="dp" class="preview-image-node" alt="Decoded Preview"/>
 
-                <div class="dz-placeholder" id="ddz-ph">
-                  <div class="dz-holo-icon">🔍</div>
-                  <div class="dz-main-text">Mount Inscribed Carrier Image</div>
-                  <div class="dz-sub-text">Drop the StegnoVault PNG to scan payload</div>
-                </div>
-
-                <div class="carrier-filename-tag" id="dfn"></div>
+              <div class="dz-placeholder" id="ddz-ph">
+                <div class="dz-holo-icon">🔍</div>
+                <div class="dz-main-text">Mount Inscribed Carrier Image</div>
+                <div class="dz-sub-text">Drop the StegnoVault PNG to scan payload</div>
               </div>
+
+              <div class="carrier-filename-tag" id="dfn"></div>
             </div>
 
-            <div style="margin-top:12px;padding:12px 16px;background:rgba(20,20,28,0.7);border:var(--spatial-border);border-radius:var(--radius-sm);font-size:0.78rem;color:var(--silver);font-family:var(--font-mono);box-shadow:0 6px 18px rgba(0,0,0,0.6)">
+            <div style="margin-top:12px;padding:14px 18px;background:rgba(10,7,7,0.4);border:1px solid var(--apogee-border);border-radius:12px;font-size:0.8rem;color:var(--apogee-txt-secondary);font-family:var(--font-mono)">
               💡 NOTE: Deliver PNG without lossy compression (discord/whatsapp image compression strips LSB).
             </div>
           </div>
@@ -1417,21 +1233,16 @@
               </select>
             </div>
 
-            <div style="padding:16px;background:rgba(20,20,28,0.75);border:var(--spatial-border);border-radius:var(--radius-sm);font-size:0.8rem;color:var(--silver);line-height:1.65;box-shadow:var(--shadow-3d-sunken);backdrop-filter:var(--spatial-glass-blur)">
+            <div style="padding:18px;background:rgba(10,7,7,0.45);border:1px solid var(--apogee-border);border-radius:12px;font-size:0.82rem;color:var(--apogee-txt-secondary);line-height:1.65">
               🔒 <strong>Authenticated Integrity:</strong> StegnoVault verifies the 32-byte binary header (`STGN`) and uses AES-256-GCM auth tags. If the password is wrong or the carrier has been tampered with, extraction aborts cleanly.
             </div>
 
           </div>
         </div>
 
-        <!-- GYRO EXTRACT LOADER -->
+        <!-- PROGRESS LOADER -->
         <div class="quantum-loader-wrap" id="dpr">
           <div class="quantum-stage">
-            <div class="gyro-rings">
-              <div class="ring-orbit ring-1"></div>
-              <div class="ring-orbit ring-2"></div>
-              <div class="ring-core"></div>
-            </div>
             <div class="loader-bitstream" id="dpl">SCANNING BITPLANES FOR 'STGN' HEADER...</div>
             <div class="loader-progress-track">
               <div class="loader-progress-fill" id="dpf"></div>
@@ -1442,9 +1253,9 @@
         <div class="result-terminal" id="dres"></div>
 
         <div class="button-rack">
-          <button class="action-btn btn-shadow-secondary" onclick="resetDecodeForm()">🗑️ Reset</button>
-          <button class="action-btn btn-shadow-primary" id="dec-btn" onclick="executeDecoding()" disabled>
-            <span>🔓</span> Extract Confidential Message
+          <button class="btn-apogee-secondary" onclick="resetDecodeForm()">Reset</button>
+          <button class="btn-apogee-primary" id="dec-btn" onclick="executeDecoding()" disabled>
+            Extract Confidential Message
           </button>
         </div>
 
@@ -1454,7 +1265,7 @@
     <!-- ARCHITECTURE GUIDE -->
     <section class="specs-section">
       <div class="section-headline">
-        <span>Spatial Architecture &amp; Methodology</span>
+        <span>Apogee Architecture &amp; Methodology</span>
       </div>
 
       <div class="specs-grid">
@@ -1476,7 +1287,7 @@
 
         <div class="spec-card">
           <div class="spec-num">03</div>
-          <div class="spec-title">3D Matrix Inscription</div>
+          <div class="spec-title">Matrix Inscription</div>
           <div class="spec-body">
             Bytes are split into 1–3 bit atoms and interwoven across RGB subpixels, keeping alpha intact for lossless PNG standard conformity.
           </div>
@@ -1494,9 +1305,9 @@
 
     <!-- FOOTER -->
     <footer>
-      <p>STEGNOVAULT // REACT-VISION × SHADOW-3D ARCHITECTURE</p>
+      <p>STEGNOVAULT // APOGEE COSMIC EDITION</p>
       <p style="margin-top:8px">
-        Designed with VisionOS Spatial Glassmorphism &amp; OriginKit • Open Source on <a href="https://github.com/ramaneon/stegno" target="_blank" rel="noopener">GitHub</a>
+        Designed with Apogee Design System • Open Source on <a href="https://github.com/ramaneon/stegno" target="_blank" rel="noopener">GitHub</a>
       </p>
     </footer>
 
@@ -1514,82 +1325,15 @@
     const STGN_MAGIC = [0x53, 0x54, 0x47, 0x4E]; // "STGN"
     const CRYPTO_MAGIC = [0x53, 0x56, 0x41, 0x45]; // "SVAE"
 
-    // ── SHADOW-3D MESH CANVAS ──
-    const canvas = document.getElementById('pulse-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let mouse = { x: -1000, y: -1000 };
-    let nodes = [];
-    const GRID_COLS = 30;
-    const GRID_ROWS = 18;
-
-    function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      initPulseMesh();
-    }
-    window.addEventListener('resize', resizeCanvas);
-
-    function initPulseMesh() {
-      nodes = [];
-      const stepX = width / GRID_COLS;
-      const stepY = height / GRID_ROWS;
-      for (let r = 0; r <= GRID_ROWS; r++) {
-        for (let c = 0; c <= GRID_COLS; c++) {
-          nodes.push({
-            origX: c * stepX,
-            origY: r * stepY,
-            x: c * stepX,
-            y: r * stepY,
-            phase: Math.random() * Math.PI * 2
-          });
-        }
-      }
-    }
-
-    window.addEventListener('mousemove', e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      document.documentElement.style.setProperty('--mouse-x', `${(e.clientX / window.innerWidth) * 100}%`);
-      document.documentElement.style.setProperty('--mouse-y', `${(e.clientY / window.innerHeight) * 100}%`);
-    });
-
-    let frameCount = 0;
-    function renderPulseMesh() {
-      frameCount++;
-      ctx.clearRect(0, 0, width, height);
-
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        const wave = Math.sin(frameCount * 0.015 + n.phase) * 2;
-        const dx = n.origX - mouse.x;
-        const dy = n.origY - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = 220;
-
-        if (dist < maxDist) {
-          const force = (1 - dist / maxDist) * 22;
-          n.x = n.origX + (dx / dist) * force;
-          n.y = n.origY + (dy / dist) * force + wave;
-        } else {
-          n.x += (n.origX - n.x) * 0.1;
-          n.y += (n.origY + wave - n.y) * 0.1;
-        }
-
-        ctx.fillStyle = dist < maxDist ? 'rgba(255, 255, 255, 0.45)' : 'rgba(255, 255, 255, 0.08)';
-        ctx.fillRect(n.x - 1, n.y - 1, 2, 2);
-      }
-      requestAnimationFrame(renderPulseMesh);
-    }
-    resizeCanvas();
-    renderPulseMesh();
-
     // ── CURSOR ENGINE ──
     const cDot = document.getElementById('cDot');
     const cAura = document.getElementById('cAura');
     let auraX = 0, auraY = 0;
+    let mouse = { x: -1000, y: -1000 };
 
     window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
       cDot.style.left = e.clientX + 'px';
       cDot.style.top = e.clientY + 'px';
     });
@@ -1607,30 +1351,6 @@
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
-    window.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
-    window.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
-
-    // ── 3D PHYSICAL TILT & DYNAMIC SHADOW CASTING ──
-    document.querySelectorAll('.dropzone-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -9;
-        const rotateY = ((x - centerX) / centerX) * 9;
-        const shadowOffsetX = ((x - centerX) / centerX) * -25;
-        const shadowOffsetY = ((y - centerY) / centerY) * -25;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        card.style.boxShadow = `${shadowOffsetX}px ${shadowOffsetY + 30}px 70px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 255, 255, 0.08)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        card.style.boxShadow = 'var(--shadow-3d-card)';
-      });
-    });
 
     // ── TABS & PRESETS ──
     function switchSuiteTab(tab) {
@@ -1638,7 +1358,6 @@
       document.getElementById('tab-dec').classList.toggle('active', tab === 'dec');
       document.getElementById('panel-enc').classList.toggle('active', tab === 'enc');
       document.getElementById('panel-dec').classList.toggle('active', tab === 'dec');
-      playHapticTone(600, 0.05);
     }
 
     function applyPreset(preset) {
@@ -1658,7 +1377,6 @@
         showToast('Hyper Capacity: 3-Bit LSB (3x Space)', 'inf');
       }
       recalcTelemetry();
-      playHapticTone(700, 0.06);
     }
 
     function toggleAccordion(contentId, chevId) {
@@ -1877,31 +1595,31 @@
       const c = cv.getContext('2d');
 
       const g = c.createLinearGradient(0, 0, cv.width, cv.height);
-      g.addColorStop(0, '#0a0a0e');
-      g.addColorStop(0.5, '#16161f');
-      g.addColorStop(1, '#050507');
+      g.addColorStop(0, '#080A19');
+      g.addColorStop(0.5, '#1e1b4b');
+      g.addColorStop(1, '#0f172a');
       c.fillStyle = g;
       c.fillRect(0, 0, cv.width, cv.height);
 
-      c.fillStyle = 'rgba(255, 255, 255, 0.03)';
+      c.fillStyle = 'rgba(255, 255, 255, 0.05)';
       c.beginPath();
-      c.arc(cv.width / 2, cv.height / 2, 140, 0, Math.PI * 2);
+      c.arc(cv.width / 2, cv.height / 2, 130, 0, Math.PI * 2);
       c.fill();
 
-      c.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      c.strokeStyle = 'rgba(255, 255, 255, 0.2)';
       c.lineWidth = 1.5;
       c.stroke();
 
       c.fillStyle = '#ffffff';
       c.font = 'bold 22px "Space Grotesk", sans-serif';
       c.textAlign = 'center';
-      c.fillText('STEGNOVAULT // SPATIAL VISION', cv.width / 2, cv.height / 2 - 8);
+      c.fillText('APOGEE SECURE CARRIER', cv.width / 2, cv.height / 2 - 8);
       c.font = '12px "JetBrains Mono", monospace';
-      c.fillStyle = '#a1a1aa';
-      c.fillText('640 × 420 • HIGH DENSITY DEMO CARRIER', cv.width / 2, cv.height / 2 + 18);
+      c.fillStyle = '#d4d4d8';
+      c.fillText('640 × 420 • HIGH ENTROPY LOSSLESS PNG', cv.width / 2, cv.height / 2 + 18);
 
       cv.toBlob(blob => {
-        const file = new File([blob], 'stegno_spatial_sample.png', { type: 'image/png' });
+        const file = new File([blob], 'stegno_apogee_sample.png', { type: 'image/png' });
         const dt = new DataTransfer(); dt.items.add(file);
         const inp = document.getElementById(targetInputId);
         inp.files = dt.files;
@@ -1966,13 +1684,13 @@
       document.getElementById('eres').classList.remove('active');
 
       try {
-        bitstream.textContent = 'HARDENING KEY WITH 100,000 PBKDF2 ITERATIONS...';
+        bitstream.textContent = 'DERIVING KEY WITH 100,000 PBKDF2 ITERATIONS...';
         bar.style.width = '25%';
         await sleep(90);
 
         let payload;
         if (useEnc) {
-          bitstream.textContent = 'ENCRYPTING PAYLOAD VIA AES-256-GCM AEAD...';
+          bitstream.textContent = 'ENCRYPTING PAYLOAD VIA AES-256-GCM...';
           bar.style.width = '50%';
           await sleep(100);
           payload = await aesEncrypt(msg, pw);
@@ -2003,7 +1721,6 @@
 
         loader.classList.remove('active');
         document.getElementById('eres').classList.add('active');
-        playHapticTone(880, 0.12);
         showToast('Carrier inscribed! Download the PNG to transmit.', 'ok');
 
       } catch (err) {
@@ -2069,7 +1786,6 @@
 
         loader.classList.remove('active');
         renderExtractionSuccess(extractedMessage, isAES, payload.length);
-        playHapticTone(960, 0.15);
         showToast('Payload extracted & authenticated successfully!', 'ok');
 
       } catch (err) {
@@ -2086,10 +1802,10 @@
       box.classList.add('active');
       box.innerHTML = `
         <div class="terminal-header">
-          <div class="terminal-status-icon success">✓</div>
+          <div class="terminal-status-icon">✓</div>
           <div>
             <div class="terminal-title">Confidential Payload Unlocked!</div>
-            <div class="terminal-desc">${wasEncrypted ? '🔒 AES-256-GCM AEAD Authenticated' : '📝 Plaintext Carrier Stream'}</div>
+            <div class="terminal-desc">${wasEncrypted ? 'AES-256-GCM Authenticated Decryption' : 'Plaintext Carrier Stream'}</div>
           </div>
         </div>
         <div class="secret-payload-box" id="extractedPayloadText">${escapeHtml(msg)}</div>
@@ -2099,8 +1815,8 @@
           <div class="meta-pill">TIMESTAMP: <span>${new Date().toLocaleTimeString()}</span></div>
         </div>
         <div class="button-rack" style="margin-top:20px">
-          <button class="action-btn btn-shadow-secondary" onclick="copyExtractedText()">📋 Copy Payload</button>
-          <button class="action-btn btn-shadow-primary" onclick="downloadExtractedText()">⬇️ Save as .txt</button>
+          <button class="btn-apogee-secondary" onclick="copyExtractedText()">Copy Payload</button>
+          <button class="btn-apogee-primary" onclick="downloadExtractedText()">Save as .txt</button>
         </div>
       `;
     }
@@ -2110,13 +1826,13 @@
       box.classList.add('active');
       box.innerHTML = `
         <div class="terminal-header">
-          <div class="terminal-status-icon error">✗</div>
+          <div class="terminal-status-icon" style="color:#ef4444">✗</div>
           <div>
             <div class="terminal-title" style="color:#ef4444">Extraction Aborted</div>
             <div class="terminal-desc">${escapeHtml(errorMsg)}</div>
           </div>
         </div>
-        <div style="font-size:0.8rem;color:var(--graphite);margin-top:10px;line-height:1.6">
+        <div style="font-size:0.84rem;color:var(--apogee-txt-secondary);margin-top:10px;line-height:1.6">
           <strong>Diagnostics:</strong><br>
           1. Confirm the image is the exact PNG output (not reconverted to JPG).<br>
           2. Check that the LSB Bit Depth selector matches the value used at inscription (default: 2).<br>
@@ -2132,7 +1848,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `stegno_vision_${Date.now()}.png`;
+        a.download = `stegno_apogee_${Date.now()}.png`;
         a.click();
         URL.revokeObjectURL(url);
         showToast('Inscribed PNG downloaded!', 'ok');
@@ -2142,7 +1858,7 @@
     function copyCarrierSpecs() {
       const bpc = document.getElementById('bpc').value;
       const isEnc = document.getElementById('useEnc').checked;
-      const text = `StegnoVault Spatial Manifest:\nTimestamp: ${new Date().toISOString()}\nModulation: ${bpc}-Bit LSB per RGB\nCipher: ${isEnc ? 'AES-256-GCM (PBKDF2 100k)' : 'None'}\nDecode Portal: https://ramaneon.github.io/stegno`;
+      const text = `StegnoVault Apogee Manifest:\nTimestamp: ${new Date().toISOString()}\nModulation: ${bpc}-Bit LSB per RGB\nCipher: ${isEnc ? 'AES-256-GCM (PBKDF2 100k)' : 'None'}\nDecode Portal: https://ramaneon.github.io/stegno`;
       navigator.clipboard.writeText(text).then(() => showToast('Manifest copied to clipboard!', 'ok'));
     }
 
@@ -2235,24 +1951,6 @@
 
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     function escapeHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&#039;'); }
-
-    let audioCtx = null;
-    function playHapticTone(freq, duration) {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
 
     function showToast(msg, type = 'inf') {
       const rack = document.getElementById('toasts');
