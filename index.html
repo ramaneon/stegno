@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>StegnoVault — Apogee Cosmic Edition</title>
-  <meta name="description" content="Next-Gen Steganography Suite built in Apogee Cosmic Navy & Glassmorphic Design System. 100% browser-based AES-256-GCM encryption & LSB carrier modulation."/>
+  <title>Stegneon — Client-Side Steganography &amp; Inscription</title>
+  <meta name="description" content="Stegneon: 100% browser-based AES-256-GCM encryption &amp; LSB carrier modulation. Zero servers, zero uploads."/>
   
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -1089,7 +1089,7 @@
     <nav class="site-nav">
       <div class="brand-logo-wrap">
         <div class="brand-icon-core">S</div>
-        <div class="brand-title">STEGNOVAULT<em>ENCLAVE</em></div>
+        <div class="brand-title">STEGNEON</div>
       </div>
       <div class="nav-right-actions">
         <button class="btn-info-pill" type="button" onclick="openDetailsModal()">
@@ -1133,30 +1133,6 @@
          ══════════════════════════════════════════ -->
     <div class="view-panel active" id="panel-enc">
       <div class="cyber-card">
-        
-        <!-- REVENUE-STYLE STAT TILES -->
-        <div class="telemetry-row">
-          <div class="metric-card">
-            <div class="metric-lbl">Total Capacity <span id="m-cap-avail">0 KB</span></div>
-            <div class="metric-val" id="m-cap-pct">0<span>% USED</span></div>
-            <div class="metric-meter"><div class="metric-meter-bar" id="m-cap-bar" style="width:0%"></div></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-lbl">Carrier Matrix <span id="m-dim-sub">Ready</span></div>
-            <div class="metric-val" id="m-dim">0 × 0<span>px</span></div>
-            <div class="metric-meter"><div class="metric-meter-bar" id="m-dim-bar" style="width:100%"></div></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-lbl">Payload Size <span id="m-bytes-sub">0 B</span></div>
-            <div class="metric-val" id="m-chars">0<span>chars</span></div>
-            <div class="metric-meter"><div class="metric-meter-bar" id="m-char-bar" style="width:0%"></div></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-lbl">Stealth Rating <span id="m-stealth-sub">Optimal</span></div>
-            <div class="metric-val" id="m-stealth">99.8<span>% INVIS</span></div>
-            <div class="metric-meter"><div class="metric-meter-bar" id="m-stealth-bar" style="width:99.8%"></div></div>
-          </div>
-        </div>
 
         <!-- 2-COLUMN WORKSPACE GRID -->
         <div class="workspace-grid">
@@ -1341,7 +1317,7 @@
               <div class="dz-placeholder" id="ddz-ph">
                 <div class="dz-holo-icon">🔍</div>
                 <div class="dz-main-text">Mount Inscribed Carrier Image</div>
-                <div class="dz-sub-text">Drop the StegnoVault PNG to scan payload</div>
+                <div class="dz-sub-text">Drop the Stegneon PNG to scan payload</div>
               </div>
 
               <div class="carrier-filename-tag" id="dfn"></div>
@@ -1380,7 +1356,7 @@
             </div>
 
             <div style="padding:18px;background:rgba(10,7,7,0.45);border:1px solid var(--apogee-border);border-radius:12px;font-size:0.82rem;color:var(--apogee-txt-secondary);line-height:1.65">
-              🔒 <strong>Authenticated Integrity:</strong> StegnoVault verifies the 32-byte binary header (`STGN`) and uses AES-256-GCM auth tags. If the password is wrong or the carrier has been tampered with, extraction aborts cleanly.
+              🔒 <strong>Authenticated Integrity:</strong> Stegneon verifies the 32-byte binary header (`STGN`) and uses AES-256-GCM auth tags. If the password is wrong or the carrier has been tampered with, extraction aborts cleanly.
             </div>
 
           </div>
@@ -1413,14 +1389,43 @@
       <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
           <div class="modal-title">
-            <span>🛡️</span> Carrier Inscription &amp; Security Architecture
+            <span>🛡️</span> Stegneon Architecture &amp; Live Telemetry
           </div>
           <button class="modal-close-btn" type="button" onclick="closeDetailsModal()" aria-label="Close">✕</button>
         </div>
         <div class="modal-body">
           <p>
-            <strong>StegnoVault Enclave:</strong> 100% browser-side image steganography and cryptographic inscription engine. Data is encoded and decoded directly inside your device memory with zero server uploads or external network requests.
+            <strong>Stegneon Enclave:</strong> 100% browser-side image steganography and cryptographic inscription engine. Data is encoded and decoded directly inside your device memory with zero server uploads or external network requests.
           </p>
+
+          <!-- LIVE CARRIER TELEMETRY STATS IN MODAL -->
+          <div style="margin-top:4px">
+            <div style="font-family:var(--font-mono);font-size:0.74rem;color:var(--apogee-txt-secondary);margin-bottom:8px;font-weight:600">
+              📊 REAL-TIME CARRIER TELEMETRY:
+            </div>
+            <div class="telemetry-row" style="margin-bottom:12px">
+              <div class="metric-card">
+                <div class="metric-lbl">Total Capacity <span id="m-cap-avail">0 KB</span></div>
+                <div class="metric-val" id="m-cap-pct">0<span>% USED</span></div>
+                <div class="metric-meter"><div class="metric-meter-bar" id="m-cap-bar" style="width:0%"></div></div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-lbl">Carrier Matrix <span id="m-dim-sub">Ready</span></div>
+                <div class="metric-val" id="m-dim">0 × 0<span>px</span></div>
+                <div class="metric-meter"><div class="metric-meter-bar" id="m-dim-bar" style="width:100%"></div></div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-lbl">Payload Size <span id="m-bytes-sub">0 B</span></div>
+                <div class="metric-val" id="m-chars">0<span>chars</span></div>
+                <div class="metric-meter"><div class="metric-meter-bar" id="m-char-bar" style="width:0%"></div></div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-lbl">Stealth Rating <span id="m-stealth-sub">Optimal</span></div>
+                <div class="metric-val" id="m-stealth">99.8<span>% INVIS</span></div>
+                <div class="metric-meter"><div class="metric-meter-bar" id="m-stealth-bar" style="width:99.8%"></div></div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal-spec-grid">
             <div class="modal-spec-item">
@@ -1450,7 +1455,7 @@
 
     <!-- MINIMAL CLEAN FOOTER (NO VENDOR CREDITS) -->
     <footer>
-      <p>STEGNOVAULT // CLIENT-SIDE ENCRYPTED STEGANOGRAPHY</p>
+      <p>STEGNEON // CLIENT-SIDE ENCRYPTED STEGANOGRAPHY</p>
     </footer>
 
   </div>

@@ -1,4 +1,4 @@
-# StegnoVault — Image Inscription & Steganography Tool
+# Stegneon — Image Inscription & Steganography Tool
 
 > Hide secret messages invisibly inside PNG/BMP images using **LSB steganography** and **AES-256-GCM encryption** — 100% client-side, no server, no uploads.
 
