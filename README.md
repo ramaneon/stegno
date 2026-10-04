@@ -14,11 +14,12 @@
 | 🔒 **AES-256-GCM Encryption** | Password-protected messages encrypted before embedding |
 | 🔑 **PBKDF2 Key Derivation** | 100 000 iterations, random 16-byte salt + 12-byte IV per encode |
 | 🖼️ **PNG & BMP Support** | Lossless formats only — JPEG compression destroys hidden data |
-| ⚡ **100% Browser-Side** | No servers, no API calls, nothing ever leaves your device |
-| 📊 **Capacity Meter** | Real-time indicator of how much of the image's LSB space is used |
-| 🎚️ **Adjustable Bit Depth** | 1-bit (stealth), 2-bit (balanced), 3-bit (high capacity) |
-| 🌙 **Dark Glassmorphism UI** | Animated gradient background, smooth micro-interactions |
-| 📱 **Responsive** | Works on mobile, tablet, and desktop |
+| ⚡ **100% Browser-Side** | No servers, no API calls, zero telemetry, fully client-side Web Crypto |
+| 🛰️ **Apogee Design Theme** | `#080A19` cosmic navy palette, high-contrast typography, CloudFront video backdrop |
+| 🔬 **CTF Bitplane Forensics** | Isolated L0, L1, L2 bitplane inspection & channel inversion (AperiSolve-inspired) |
+| 📊 **Real-time Telemetry** | Dynamic capacity gauge, carrier dimensions, entropy estimation, and stealth rating |
+| 🎚️ **Adjustable Bit Depth** | 1-bit (maximum stealth), 2-bit (balanced), 3-bit (high throughput) |
+| 📱 **Mobile & Desktop** | Fluid responsive layout with OriginKit 22 magnetic cursor interaction |
 
 ---
 
