@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>StegnoVault — Image Inscription & Steganography Tool</title>
+  <meta name="description" content="Hide secret messages inside PNG/BMP images using LSB steganography and AES-256-GCM encryption. Free, open-source, 100% client-side — no server, no uploads."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:      #04080f;
+      --bg-card: rgba(8,14,28,.82);
+      --bg-hover:rgba(8,14,28,.95);
+      --bdr:     rgba(56,139,253,.14);
+      --bdr-hi:  rgba(56,139,253,.42);
+      --c1:      #58a6ff;
+      --c2:      #a371f7;
+      --c3:      #3fb950;
+      --c4:      #f78166;
+      --c5:      #e3b341;
+      --txt:     #e6edf3;
+      --txt-mid: #8b949e;
+      --txt-lo:  #30363d;
+      --r:       14px;
+      --r-sm:    9px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden}
+
+    /* ── BG AMBIENCE ── */
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      background:
+        radial-gradient(ellipse 90% 60% at 15% -5%,rgba(88,166,255,.07) 0%,transparent 65%),
+        radial-gradient(ellipse 70% 50% at 85% 105%,rgba(163,113,247,.07) 0%,transparent 65%),
+        radial-gradient(ellipse 50% 40% at 50% 50%,rgba(63,185,80,.04) 0%,transparent 70%);
+      animation:breathe 10s ease-in-out infinite alternate;
+    }
+    @keyframes breathe{from{opacity:.6}to{opacity:1}}
+    body::after{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      background-image:
+        linear-gradient(rgba(56,139,253,.018) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(56,139,253,.018) 1px,transparent 1px);
+      background-size:72px 72px;
+    }
+
+    .wrap{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 22px}
+
+    /* ── HEADER ── */
+    header{padding:36px 0 24px;text-align:center}
+    .brand{
+      display:inline-flex;align-items:center;gap:12px;
+      border:1px solid var(--bdr);border-radius:50px;
+      padding:9px 20px;backdrop-filter:blur(20px);
+      background:var(--bg-card);margin-bottom:36px;
+    }
+    .brand-ico{
+      width:34px;height:34px;border-radius:9px;
+      background:linear-gradient(135deg,var(--c1),var(--c2));
+      display:flex;align-items:center;justify-content:center;font-size:16px;
+    }
+    .brand-name{font-size:17px;font-weight:700;letter-spacing:-.2px}
+    .brand-name em{font-style:normal;color:var(--c1)}
+    h1{
+      font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:900;letter-spacing:-2px;
+      line-height:1.08;margin-bottom:18px;
+      background:linear-gradient(135deg,#e6edf3 0%,var(--c1) 45%,var(--c2) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .sub{color:var(--txt-mid);font-size:1.05rem;max-width:540px;margin:0 auto 38px;line-height:1.65}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:52px}
+    .chip{
+      display:inline-flex;align-items:center;gap:6px;padding:5px 13px;
+      border-radius:50px;font-size:.75rem;font-weight:600;border:1px solid;letter-spacing:.3px;
+    }
+    .chip-b{border-color:rgba(88,166,255,.3);color:var(--c1);background:rgba(88,166,255,.07)}
+    .chip-p{border-color:rgba(163,113,247,.3);color:var(--c2);background:rgba(163,113,247,.07)}
+    .chip-g{border-color:rgba(63,185,80,.3);color:var(--c3);background:rgba(63,185,80,.07)}
+    .chip-y{border-color:rgba(227,179,65,.3);color:var(--c5);background:rgba(227,179,65,.07)}
+
+    /* ── TABS ── */
+    .tabs{
+      display:flex;gap:4px;
+      background:rgba(4,8,15,.9);border:1px solid var(--bdr);
+      border-radius:50px;padding:4px;max-width:300px;
+      margin:0 auto 52px;backdrop-filter:blur(20px);
+    }
+    .tab{
+      flex:1;padding:11px 26px;border:none;background:none;
+      color:var(--txt-mid);font-family:'Inter',sans-serif;
+      font-size:.92rem;font-weight:600;border-radius:50px;
+      cursor:pointer;transition:all .28s;
+      display:flex;align-items:center;justify-content:center;gap:7px;
+    }
+    .tab.on{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;box-shadow:0 3px 18px rgba(88,166,255,.28)}
+    .tab:not(.on):hover{color:var(--txt);background:rgba(255,255,255,.05)}
+
+    /* ── PANELS ── */
+    .panel{display:none;animation:fadeUp .38s ease}
+    .panel.on{display:block}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── CARD ── */
+    .card{
+      background:var(--bg-card);border:1px solid var(--bdr);
+      border-radius:var(--r);backdrop-filter:blur(24px);padding:30px;
+      transition:border-color .3s;
+    }
+    .card:hover{border-color:var(--bdr-hi)}
+
+    /* ── 2-COL GRID ── */
+    .g2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+    @media(max-width:720px){.g2{grid-template-columns:1fr}}
+
+    /* ── DROPZONE ── */
+    .dz{
+      border:2px dashed var(--bdr);border-radius:var(--r-sm);
+      padding:36px 22px;text-align:center;cursor:pointer;
+      transition:all .28s;position:relative;min-height:260px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+      background:rgba(4,8,15,.5);
+    }
+    .dz:hover,.dz.over{border-color:var(--c1);background:rgba(88,166,255,.05);box-shadow:0 0 36px rgba(88,166,255,.12)}
+    .dz input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .dz-ico{font-size:2.8rem;margin-bottom:4px}
+    .dz-t{font-size:.97rem;font-weight:600;color:var(--txt)}
+    .dz-s{font-size:.8rem;color:var(--txt-mid)}
+    .dz-preview{max-width:100%;max-height:190px;border-radius:9px;object-fit:contain;border:1px solid var(--bdr)}
+    .dz-fname{font-size:.77rem;font-family:'JetBrains Mono',monospace;color:var(--c1);margin-top:4px}
+
+    /* ── LABELS ── */
+    .lbl{
+      display:flex;align-items:center;gap:7px;
+      font-size:.78rem;font-weight:700;color:var(--txt-mid);
+      margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px;
+    }
+    .lbl .dot{width:5px;height:5px;border-radius:50%;background:var(--c1)}
+
+    /* ── INPUTS ── */
+    textarea,input[type=text],input[type=password],select{
+      width:100%;background:rgba(4,8,15,.7);border:1px solid var(--bdr);
+      border-radius:var(--r-sm);color:var(--txt);
+      font-family:'Inter',sans-serif;font-size:.93rem;
+      padding:13px 15px;outline:none;transition:all .28s;
+    }
+    textarea{min-height:140px;resize:vertical}
+    textarea:focus,input:focus,select:focus{border-color:var(--c1);box-shadow:0 0 0 3px rgba(88,166,255,.1)}
+    textarea::placeholder,input::placeholder{color:var(--txt-lo)}
+    select{cursor:pointer}
+
+    .cc{font-size:.76rem;color:var(--txt-lo);text-align:right;margin-top:5px;font-family:'JetBrains Mono',monospace}
+    .cc.warn{color:var(--c4)}
+
+    /* ── PASSWORD ── */
+    .pw-wrap{position:relative}
+    .pw-wrap input{padding-right:46px}
+    .pw-eye{
+      position:absolute;right:13px;top:50%;transform:translateY(-50%);
+      background:none;border:none;cursor:pointer;color:var(--txt-mid);
+      font-size:1.1rem;padding:4px;transition:color .2s;
+    }
+    .pw-eye:hover{color:var(--c1)}
+    .strength-bars{display:flex;gap:4px;margin-top:7px}
+    .sbar{flex:1;height:3px;border-radius:2px;background:var(--bg);transition:background .3s}
+    .sbar.weak{background:var(--c4)}.sbar.fair{background:var(--c5)}.sbar.strong{background:var(--c3)}
+    .sbar-lbl{font-size:.73rem;color:var(--txt-lo);margin-top:4px}
+
+    /* ── ADV TOGGLE ── */
+    .adv-hdr{
+      display:flex;align-items:center;gap:9px;cursor:pointer;
+      font-size:.86rem;font-weight:500;color:var(--txt-mid);user-select:none;transition:color .2s;
+    }
+    .adv-hdr:hover{color:var(--txt)}
+    .chev{transition:transform .28s;display:inline-block;font-style:normal}
+    .chev.open{transform:rotate(180deg)}
+    .adv-body{
+      display:none;margin-top:14px;padding:18px;
+      background:rgba(4,8,15,.5);border:1px solid var(--bdr);
+      border-radius:var(--r-sm);animation:fadeUp .28s ease;
+    }
+    .adv-body.open{display:block}
+
+    /* ── TOGGLE SWITCH ── */
+    .tr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .tr:last-child{margin-bottom:0}
+    .tr-t{font-size:.88rem;font-weight:600;color:var(--txt);margin-bottom:2px}
+    .tr-d{font-size:.76rem;color:var(--txt-mid)}
+    .sw{position:relative;width:42px;height:22px;flex-shrink:0}
+    .sw input{opacity:0;width:0;height:0}
+    .sl{
+      position:absolute;inset:0;background:var(--bg);
+      border:1px solid var(--bdr);border-radius:50px;cursor:pointer;transition:.28s;
+    }
+    .sl::before{
+      content:'';position:absolute;width:14px;height:14px;
+      left:3px;top:3px;background:var(--txt-lo);border-radius:50%;transition:.28s;
+    }
+    .sw input:checked+.sl{background:var(--c1);border-color:var(--c1)}
+    .sw input:checked+.sl::before{transform:translateX(20px);background:#fff}
+
+    /* ── BUTTONS ── */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      padding:13px 28px;border:none;border-radius:var(--r-sm);
+      font-family:'Inter',sans-serif;font-size:.92rem;font-weight:700;
+      cursor:pointer;transition:all .28s;letter-spacing:.15px;white-space:nowrap;
+    }
+    .btn-p{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;box-shadow:0 3px 22px rgba(88,166,255,.22)}
+    .btn-p:hover{transform:translateY(-2px);box-shadow:0 7px 30px rgba(88,166,255,.38)}
+    .btn-p:active{transform:translateY(0)}
+    .btn-p:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-g{background:linear-gradient(135deg,#2ea043,var(--c3));color:#fff;box-shadow:0 3px 22px rgba(63,185,80,.18)}
+    .btn-g:hover{transform:translateY(-2px);box-shadow:0 7px 30px rgba(63,185,80,.32)}
+    .btn-g:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-s{background:rgba(255,255,255,.05);border:1px solid var(--bdr);color:var(--txt-mid)}
+    .btn-s:hover{border-color:var(--bdr-hi);color:var(--txt);background:rgba(255,255,255,.08)}
+    .btn-row{display:flex;gap:11px;flex-wrap:wrap;justify-content:flex-end;margin-top:22px}
+    @media(max-width:480px){.btn-row .btn{width:100%}}
+
+    /* ── SPINNER ── */
+    .spin{width:17px;height:17px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:rot .65s linear infinite}
+    @keyframes rot{to{transform:rotate(360deg)}}
+
+    /* ── PROGRESS ── */
+    .prog-wrap{display:none;margin-top:18px}
+    .prog-wrap.show{display:block}
+    .prog-row{display:flex;justify-content:space-between;font-size:.78rem;color:var(--txt-mid);margin-bottom:7px}
+    .prog-track{height:5px;background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden}
+    .prog-fill{height:100%;background:linear-gradient(90deg,var(--c1),var(--c2));border-radius:10px;width:0%;transition:width .3s ease}
+
+    /* ── CAP METER ── */
+    .cap{margin-top:11px}
+    .cap-row{display:flex;justify-content:space-between;font-size:.76rem;color:var(--txt-mid);margin-bottom:5px}
+    .cap-track{height:3px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+    .cap-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--c3),var(--c1));transition:width .4s ease,background .3s}
+    .cap-fill.warn{background:linear-gradient(90deg,var(--c5),var(--c4))}
+    .cap-info{font-size:.76rem;color:var(--txt-mid);margin-top:5px;font-family:'JetBrains Mono',monospace}
+
+    /* ── RESULT BOX ── */
+    .res-box{display:none;margin-top:22px;animation:fadeUp .38s ease}
+    .res-box.show{display:block}
+    .res-hdr{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+    .res-ico{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .res-ico.ok{background:rgba(63,185,80,.15)}
+    .res-ico.bad{background:rgba(247,129,102,.15)}
+    .res-t{font-size:.97rem;font-weight:700}.res-t.ok{color:var(--c3)}.res-t.bad{color:var(--c4)}
+    .res-s{font-size:.8rem;color:var(--txt-mid);margin-top:2px}
+
+    /* ── DECODED OUTPUT ── */
+    .decoded{
+      background:rgba(4,8,15,.85);border:1px solid var(--bdr);border-radius:var(--r-sm);
+      padding:18px;font-family:'JetBrains Mono',monospace;font-size:.88rem;
+      color:var(--txt);white-space:pre-wrap;word-break:break-word;
+      max-height:280px;overflow-y:auto;line-height:1.65;
+    }
+    .meta-pills{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+    .mpill{display:flex;align-items:center;gap:5px;font-size:.76rem;color:var(--txt-mid)}
+    .mpill span{color:var(--txt);font-family:'JetBrains Mono',monospace}
+
+    /* ── INFO ALERTS ── */
+    .inf{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:var(--r-sm);font-size:.8rem;margin-top:10px}
+    .inf.i{background:rgba(88,166,255,.07);border:1px solid rgba(88,166,255,.2);color:var(--c1)}
+    .inf.w{background:rgba(227,179,65,.07);border:1px solid rgba(227,179,65,.2);color:var(--c5)}
+    .inf.e{background:rgba(247,129,102,.07);border:1px solid rgba(247,129,102,.2);color:var(--c4)}
+    .inf.g{background:rgba(63,185,80,.07);border:1px solid rgba(63,185,80,.2);color:var(--c3)}
+
+    /* ── SECTION TITLE ── */
+    .sec-t{
+      font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;
+      color:var(--txt-lo);margin-bottom:18px;display:flex;align-items:center;gap:10px;
+    }
+    .sec-t::after{content:'';flex:1;height:1px;background:var(--bdr)}
+
+    /* ── HOW IT WORKS ── */
+    .how{margin:68px 0}
+    .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+    .how-card{
+      background:var(--bg-card);border:1px solid var(--bdr);
+      border-radius:var(--r);padding:26px 22px;backdrop-filter:blur(20px);transition:all .28s;
+    }
+    .how-card:hover{border-color:var(--bdr-hi);transform:translateY(-4px);box-shadow:0 0 36px rgba(88,166,255,.1)}
+    .how-n{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:800;margin-bottom:14px}
+    .n1{background:rgba(88,166,255,.12);color:var(--c1)}
+    .n2{background:rgba(163,113,247,.12);color:var(--c2)}
+    .n3{background:rgba(63,185,80,.12);color:var(--c3)}
+    .n4{background:rgba(227,179,65,.12);color:var(--c5)}
+    .how-t{font-size:.92rem;font-weight:700;margin-bottom:7px}
+    .how-d{font-size:.8rem;color:var(--txt-mid);line-height:1.6}
+
+    /* ── TOAST ── */
+    .toasts{position:fixed;bottom:22px;right:22px;display:flex;flex-direction:column;gap:9px;z-index:9999}
+    .toast{
+      display:flex;align-items:center;gap:11px;padding:12px 18px;
+      background:rgba(8,14,28,.96);border:1px solid var(--bdr);border-radius:var(--r-sm);
+      backdrop-filter:blur(20px);font-size:.85rem;font-weight:500;
+      min-width:260px;max-width:360px;box-shadow:0 6px 28px rgba(0,0,0,.5);
+      animation:slideIn .32s ease;
+    }
+    .toast.out{animation:slideOut .32s ease forwards}
+    @keyframes slideIn{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes slideOut{to{opacity:0;transform:translateX(36px)}}
+    .td{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+    .toast.ok .td{background:var(--c3)}.toast.err .td{background:var(--c4)}.toast.inf .td{background:var(--c1)}
+
+    /* ── FOOTER ── */
+    footer{text-align:center;padding:42px 0 32px;border-top:1px solid var(--bdr);color:var(--txt-lo);font-size:.8rem}
+    footer a{color:var(--c1);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+
+    ::-webkit-scrollbar{width:5px;height:5px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--bdr-hi)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-ico">🔐</div>
+      <div class="brand-name">Stegno<em>Vault</em></div>
+    </div>
+    <h1>Image Inscription<br>Steganography Tool</h1>
+    <p class="sub">Hide secret messages invisibly inside PNG &amp; BMP images using LSB steganography and AES‑256‑GCM encryption — zero server, zero uploads, 100% in your browser.</p>
+    <div class="chips">
+      <span class="chip chip-b">🔒 AES-256-GCM</span>
+      <span class="chip chip-p">🖼️ PNG / BMP</span>
+      <span class="chip chip-g">⚡ 100% Client-Side</span>
+      <span class="chip chip-b">🛡️ No Data Upload</span>
+      <span class="chip chip-y">🔑 Password Protected</span>
+      <span class="chip chip-p">🧬 LSB Steganography</span>
+    </div>
+    <div class="tabs">
+      <button class="tab on" id="t-enc" onclick="switchTab('enc')">🔏 Encode</button>
+      <button class="tab"    id="t-dec" onclick="switchTab('dec')">🔓 Decode</button>
+    </div>
+  </header>
+
+  <!-- ═══ ENCODE PANEL ═══ -->
+  <div class="panel on" id="p-enc">
+    <div class="card">
+      <div class="sec-t">🔏 Encode — Hide Message Inside Image</div>
+      <div class="g2">
+
+        <!-- LEFT: Image upload -->
+        <div>
+          <div class="lbl"><span class="dot"></span>Cover Image (PNG / BMP)</div>
+          <div class="dz" id="edz"
+               ondragover="dzOver(event,'edz')" ondragleave="dzLeave('edz')"
+               ondrop="dzDrop(event,'ei','edz')">
+            <input type="file" id="ei" accept="image/png,image/bmp"
+                   onchange="loadImg('ei','ep','edz','efn',true)">
+            <img id="ep" class="dz-preview" style="display:none" alt="preview"/>
+            <div id="edz-ph">
+              <div class="dz-ico">🖼️</div>
+              <div class="dz-t">Drop image or click to browse</div>
+              <div class="dz-s">PNG or BMP · lossless formats only</div>
+            </div>
+            <div class="dz-fname" id="efn"></div>
+          </div>
+          <div id="cap-wrap" style="display:none">
+            <div class="cap">
+              <div class="cap-row"><span>Capacity Used</span><span id="cap-pct">0%</span></div>
+              <div class="cap-track"><div class="cap-fill" id="cap-fill"></div></div>
+              <div class="cap-info" id="cap-info"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Message + password -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <div class="lbl"><span class="dot" style="background:var(--c2)"></span>Secret Message</div>
+            <textarea id="smsg" placeholder="Type your secret message here…"
+                      oninput="updateCap();updateCC()"></textarea>
+            <div class="cc" id="cc">0 chars</div>
+          </div>
+          <div>
+            <div class="lbl"><span class="dot" style="background:var(--c3)"></span>Encryption Password <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.76rem">(optional)</span></div>
+            <div class="pw-wrap">
+              <input type="password" id="epw" placeholder="Leave blank for no encryption"
+                     oninput="strengthMeter('epw','esb','eslbl')" autocomplete="new-password"/>
+              <button class="pw-eye" onclick="toggleEye('epw',this)" type="button">👁️</button>
+            </div>
+            <div class="strength-bars" id="esb">
+              <div class="sbar" id="esb1"></div><div class="sbar" id="esb2"></div>
+              <div class="sbar" id="esb3"></div><div class="sbar" id="esb4"></div>
+            </div>
+            <div class="sbar-lbl" id="eslbl">Enter a password to enable AES-256-GCM encryption</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced -->
+      <div style="margin-bottom:20px">
+        <div class="adv-hdr" onclick="toggleAdv('eadv','echev')">
+          <span>⚙️ Advanced Options</span>
+          <i class="chev" id="echev">▾</i>
+        </div>
+        <div class="adv-body" id="eadv">
+          <div class="tr">
+            <div><div class="tr-t">AES-256-GCM Encryption</div><div class="tr-d">Encrypt message before embedding (requires password)</div></div>
+            <label class="sw"><input type="checkbox" id="useEnc" checked onchange="syncEncUI()"><span class="sl"></span></label>
+          </div>
+          <div class="tr">
+            <div><div class="tr-t">Embed Timestamp</div><div class="tr-d">Store encoding time inside the payload header</div></div>
+            <label class="sw"><input type="checkbox" id="useTs" checked><span class="sl"></span></label>
+          </div>
+          <div class="tr" style="margin-top:10px">
+            <div><div class="tr-t">LSB Bit Depth</div><div class="tr-d">Bits per colour channel (higher = more capacity, slightly less invisible)</div></div>
+            <select id="bpc" onchange="updateCap()" style="width:160px;padding:8px 12px">
+              <option value="1">1 bit — stealth</option>
+              <option value="2" selected>2 bits — balanced ✓</option>
+              <option value="3">3 bits — high cap</option>
+            </select>
+          </div>
+          <div class="inf i" style="margin-top:12px">
+            💡 For CTF / forensics: 1-bit is hardest to detect; zsteg won't trivially find 2-bit payloads.
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="prog-wrap" id="epr">
+        <div class="prog-row"><span id="epl">Encoding…</span><span id="epp">0%</span></div>
+        <div class="prog-track"><div class="prog-fill" id="epf"></div></div>
+      </div>
+
+      <!-- Result: encoded image -->
+      <div class="res-box" id="eres">
+        <div class="res-hdr">
+          <div class="res-ico ok">✅</div>
+          <div><div class="res-t ok">Message encoded successfully!</div>
+               <div class="res-s">Your secret is hidden in the image below — download and share it.</div></div>
+        </div>
+        <canvas id="ecanvas" style="max-width:100%;border-radius:9px;border:1px solid var(--bdr);display:block;margin-bottom:14px"></canvas>
+        <div class="btn-row">
+          <button class="btn btn-s" onclick="copyShareInfo()">📋 Copy Info</button>
+          <button class="btn btn-g" onclick="dlEncoded()">⬇️ Download PNG</button>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-s" onclick="clearEnc()">🗑️ Clear</button>
+        <button class="btn btn-p" id="enc-btn" onclick="doEncode()" disabled>🔏 Encode Message</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DECODE PANEL ═══ -->
+  <div class="panel" id="p-dec">
+    <div class="card">
+      <div class="sec-t">🔓 Decode — Extract Hidden Message</div>
+      <div class="g2">
+
+        <!-- LEFT: Image upload -->
+        <div>
+          <div class="lbl"><span class="dot"></span>Encoded Image (PNG / BMP)</div>
+          <div class="dz" id="ddz"
+               ondragover="dzOver(event,'ddz')" ondragleave="dzLeave('ddz')"
+               ondrop="dzDrop(event,'di','ddz')">
+            <input type="file" id="di" accept="image/png,image/bmp"
+                   onchange="loadImg('di','dp','ddz','dfn',false)">
+            <img id="dp" class="dz-preview" style="display:none" alt="preview"/>
+            <div id="ddz-ph">
+              <div class="dz-ico">🔍</div>
+              <div class="dz-t">Drop encoded image or click to browse</div>
+              <div class="dz-s">Must be the StegnoVault-encoded PNG/BMP</div>
+            </div>
+            <div class="dz-fname" id="dfn"></div>
+          </div>
+          <div class="inf i" style="margin-top:10px">💡 Use the exact PNG downloaded after encoding — never JPEG-convert it.</div>
+        </div>
+
+        <!-- RIGHT: Password + bit depth -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <div class="lbl"><span class="dot" style="background:var(--c3)"></span>Decryption Password</div>
+            <div class="pw-wrap">
+              <input type="password" id="dpw" placeholder="Enter password if message was encrypted" autocomplete="current-password"/>
+              <button class="pw-eye" onclick="toggleEye('dpw',this)" type="button">👁️</button>
+            </div>
+            <div class="inf i" style="margin-top:8px">Leave blank if image was encoded without a password</div>
+          </div>
+          <div>
+            <div class="lbl"><span class="dot" style="background:var(--c2)"></span>LSB Bit Depth Used</div>
+            <select id="dbpc" style="width:100%;padding:10px 14px">
+              <option value="1">1 bit per channel</option>
+              <option value="2" selected>2 bits per channel (recommended)</option>
+              <option value="3">3 bits per channel</option>
+            </select>
+            <div style="font-size:.76rem;color:var(--txt-lo);margin-top:6px">Must match the bit depth used during encoding</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="prog-wrap" id="dpr">
+        <div class="prog-row"><span id="dpl">Extracting…</span><span id="dpp">0%</span></div>
+        <div class="prog-track"><div class="prog-fill" id="dpf"></div></div>
+      </div>
+
+      <!-- Result -->
+      <div class="res-box" id="dres"></div>
+
+      <div class="btn-row" style="margin-top:22px">
+        <button class="btn btn-s" onclick="clearDec()">🗑️ Clear</button>
+        <button class="btn btn-p" id="dec-btn" onclick="doDecode()" disabled>🔓 Extract Message</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="sec-t" style="font-size:.82rem">How It Works</div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-n n1">1</div>
+        <div class="how-t">Upload Cover Image</div>
+        <div class="how-d">Load any PNG or BMP — lossless formats required. JPEG destroys LSB data during compression, so it's not supported.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-n n2">2</div>
+        <div class="how-t">AES-256-GCM Encryption</div>
+        <div class="how-d">Message is encrypted with AES-256-GCM via a PBKDF2-derived key (100 000 iterations, random salt + IV). Unbreakable without the password.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-n n3">3</div>
+        <div class="how-t">LSB Steganography</div>
+        <div class="how-d">Encrypted bytes are split into 1–3-bit chunks and written into the least-significant bits of the RGB pixel channels — visually identical to the original.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-n n4">4</div>
+        <div class="how-t">Secure Extraction</div>
+        <div class="how-d">Recipient uploads the image, enters the password. LSB bits are read back, bytes reassembled, AES-GCM decrypts — message revealed instantly.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built with ❤️ — pure HTML + JS · <a href="https://github.com/ramaneon/stegno" target="_blank" rel="noopener">GitHub</a> · LSB + AES-256-GCM</p>
+    <p style="margin-top:7px">All processing is local — nothing ever leaves your device.</p>
+  </footer>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+let encImgData = null;  // ImageData of cover image
+
+// ════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════
+function switchTab(t){
+  ['enc','dec'].forEach(x=>{
+    document.getElementById('t-'+x).classList.toggle('on', x===t);
+    document.getElementById('p-'+x).classList.toggle('on', x===t);
+  });
+}
+
+// ════════════════════════════════════════
+// DRAG & DROP
+// ════════════════════════════════════════
+function dzOver(e,id){e.preventDefault();document.getElementById(id).classList.add('over')}
+function dzLeave(id){document.getElementById(id).classList.remove('over')}
+function dzDrop(e,inputId,dzId){
+  e.preventDefault();dzLeave(dzId);
+  const f=e.dataTransfer.files[0];if(!f)return;
+  const inp=document.getElementById(inputId);
+  const dt=new DataTransfer();dt.items.add(f);inp.files=dt.files;
+  inp.dispatchEvent(new Event('change'));
+}
+
+// ════════════════════════════════════════
+// IMAGE LOAD & PREVIEW
+// ════════════════════════════════════════
+function loadImg(inputId,previewId,dzId,fnId,isEncode){
+  const f=document.getElementById(inputId).files[0];
+  if(!f)return;
+  if(!/image\/(png|bmp)/.test(f.type)){toast('Only PNG and BMP are supported.','err');return;}
+  const r=new FileReader();
+  r.onload=e=>{
+    const img=document.getElementById(previewId);
+    img.src=e.target.result;img.style.display='block';
+    const ph=document.getElementById(dzId+'-ph');
+    if(ph)ph.style.display='none';
+    document.getElementById(fnId).textContent='📎 '+f.name;
+    if(isEncode){
+      img.onload=()=>{
+        const c=document.createElement('canvas');
+        c.width=img.naturalWidth;c.height=img.naturalHeight;
+        const ctx=c.getContext('2d');ctx.drawImage(img,0,0);
+        encImgData=ctx.getImageData(0,0,c.width,c.height);
+        document.getElementById('enc-btn').disabled=false;
+        document.getElementById('cap-wrap').style.display='block';
+        updateCap();
+        toast(`Loaded ${img.naturalWidth}×${img.naturalHeight}px`,'inf');
+      };
+    } else {
+      document.getElementById('dec-btn').disabled=false;
+      toast('Image loaded — ready to decode.','inf');
+    }
+  };
+  r.readAsDataURL(f);
+}
+
+// ════════════════════════════════════════
+// CAPACITY METER
+// ════════════════════════════════════════
+function updateCap(){
+  if(!encImgData)return;
+  const b=parseInt(document.getElementById('bpc').value)||2;
+  const totalBytes=Math.floor((encImgData.data.length/4*3*b)/8)-HLEN;
+  const msgBytes=new TextEncoder().encode(document.getElementById('smsg').value).length;
+  const pct=Math.min(100,Math.round(msgBytes/totalBytes*100));
+  document.getElementById('cap-pct').textContent=pct+'%';
+  const f=document.getElementById('cap-fill');
+  f.style.width=pct+'%';
+  f.className='cap-fill'+(pct>80?' warn':'');
+  document.getElementById('cap-info').textContent=
+    `${msgBytes.toLocaleString()} / ${totalBytes.toLocaleString()} bytes usable`;
+}
+function updateCC(){
+  const n=document.getElementById('smsg').value.length;
+  const el=document.getElementById('cc');
+  el.textContent=n.toLocaleString()+' chars';
+  el.className='cc'+(n>8000?' warn':'');
+}
+
+// ════════════════════════════════════════
+// PASSWORD STRENGTH
+// ════════════════════════════════════════
+function strengthMeter(inputId,barsId,lblId){
+  const pw=document.getElementById(inputId).value;
+  let s=0;
+  if(pw.length>=8)s++;
+  if(/[A-Z]/.test(pw))s++;
+  if(/[0-9]/.test(pw))s++;
+  if(/[^A-Za-z0-9]/.test(pw))s++;
+  const cls=['','weak','weak','fair','strong'];
+  const labels=['Enter a password to enable AES-256-GCM encryption','Weak','Fair','Strong','Very Strong'];
+  ['1','2','3','4'].forEach((n,i)=>{
+    const b=document.getElementById(barsId+n);
+    if(!b)return;
+    b.className='sbar'+(i<s?' '+cls[s]:'');
+  });
+  const lbl=document.getElementById(lblId);
+  if(lbl)lbl.textContent=pw.length===0?labels[0]:'Strength: '+labels[s];
+}
+function toggleEye(id,btn){
+  const inp=document.getElementById(id);
+  inp.type=inp.type==='password'?'text':'password';
+  btn.textContent=inp.type==='password'?'👁️':'🙈';
+}
+function syncEncUI(){
+  document.getElementById('epw').disabled=!document.getElementById('useEnc').checked;
+}
+function toggleAdv(bodyId,chevId){
+  document.getElementById(bodyId).classList.toggle('open');
+  document.getElementById(chevId).classList.toggle('open');
+}
+
+// ════════════════════════════════════════
+// CRYPTO: AES-256-GCM + PBKDF2
+// ════════════════════════════════════════
+const CRYPTO_MAGIC=[0x53,0x56,0x41,0x45]; // "SVAE"
+async function deriveKey(pw,salt){
+  const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey(
+    {name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},
+    km,{name:'AES-GCM',length:256},false,['encrypt','decrypt']
+  );
+}
+async function aesEncrypt(plaintext,pw){
+  const salt=crypto.getRandomValues(new Uint8Array(16));
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const key=await deriveKey(pw,salt);
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(plaintext));
+  const out=new Uint8Array(4+16+12+ct.byteLength);
+  out.set(CRYPTO_MAGIC,0);out.set(salt,4);out.set(iv,20);
+  out.set(new Uint8Array(ct),32);
+  return out;
+}
+async function aesDecrypt(data,pw){
+  if(![...CRYPTO_MAGIC].every((v,i)=>data[i]===v))throw new Error('Not an AES-encrypted payload');
+  const salt=data.slice(4,20),iv=data.slice(20,32),ct=data.slice(32);
+  const key=await deriveKey(pw,salt);
+  const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,ct);
+  return new TextDecoder().decode(pt);
+}
+
+// ════════════════════════════════════════
+// LSB STEGANOGRAPHY ENGINE
+// ════════════════════════════════════════
+/*
+  Binary header: HLEN bytes
+  [0..3]  Magic  0x53 0x54 0x47 0x4E  ("STGN")
+  [4..7]  Payload length uint32 LE
+  [8]     Bit depth (bpc)
+  [9]     Flags  bit0=AES-encrypted  bit1=hasTimestamp
+  [10..11] Version 0x01 0x00
+  [12..31] Reserved
+*/
+const HLEN=32;
+const STGN_MAGIC=[0x53,0x54,0x47,0x4E];
+
+function chunkify(bytes,bpc){
+  // Split each byte into ceil(8/bpc) chunks of bpc bits each
+  const mask=(1<<bpc)-1;
+  const out=[];
+  for(const byte of bytes){
+    for(let sh=8-bpc;sh>=0;sh-=bpc) out.push((byte>>sh)&mask);
+  }
+  return out;
+}
+
+function embed(imgData,payload,bpc){
+  const hdr=new Uint8Array(HLEN);
+  hdr[0]=STGN_MAGIC[0];hdr[1]=STGN_MAGIC[1];hdr[2]=STGN_MAGIC[2];hdr[3]=STGN_MAGIC[3];
+  const L=payload.length;
+  hdr[4]=L&0xFF;hdr[5]=(L>>8)&0xFF;hdr[6]=(L>>16)&0xFF;hdr[7]=(L>>24)&0xFF;
+  hdr[8]=bpc;hdr[9]=0;hdr[10]=0x01;hdr[11]=0x00;
+  const full=new Uint8Array(HLEN+L);full.set(hdr,0);full.set(payload,HLEN);
+
+  const chunks=chunkify(full,bpc);
+  const pxCount=imgData.width*imgData.height;
+  if(chunks.length>pxCount*3) throw new Error('Image too small — choose a larger image or reduce message size.');
+
+  const mask=(1<<bpc)-1;
+  const px=new Uint8Array(imgData.data);
+  let ci=0;
+  for(let p=0;p<pxCount&&ci<chunks.length;p++){
+    const b=p*4;
+    for(let ch=0;ch<3&&ci<chunks.length;ch++){
+      px[b+ch]=(px[b+ch]&~mask)|chunks[ci++];
+    }
+  }
+  return px;
+}
+
+function extract(imgData,bpc){
+  const px=imgData.data;
+  const pxCount=imgData.width*imgData.height;
+  const mask=(1<<bpc)-1;
+  const chunksPerByte=Math.ceil(8/bpc);
+
+  function readBytes(n,startChunkIdx){
+    const result=new Uint8Array(n);
+    let byteI=0,bitBuf=0,bitCnt=0,ci=startChunkIdx;
+    while(byteI<n&&ci<pxCount*3){
+      const px_idx=Math.floor(ci/3),ch=ci%3;
+      const chunk=px[px_idx*4+ch]&mask;
+      bitBuf=(bitBuf<<bpc)|chunk;bitCnt+=bpc;ci++;
+      while(bitCnt>=8&&byteI<n){bitCnt-=8;result[byteI++]=(bitBuf>>bitCnt)&0xFF;}
+    }
+    return result;
+  }
+
+  const hdrChunks=HLEN*chunksPerByte;
+  const hdr=readBytes(HLEN,0);
+
+  if(![...STGN_MAGIC].every((v,i)=>hdr[i]===v))
+    throw new Error('No StegnoVault data found. Check you are using the correct bit depth, or this image was not encoded here.');
+
+  const L=hdr[4]|(hdr[5]<<8)|(hdr[6]<<16)|(hdr[7]<<24);
+  if(L<=0||L>50_000_000) throw new Error('Corrupt header — invalid payload length.');
+
+  return readBytes(L,hdrChunks);
+}
+
+// ════════════════════════════════════════
+// ENCODE FLOW
+// ════════════════════════════════════════
+async function doEncode(){
+  if(!encImgData){toast('Load a cover image first.','err');return;}
+  const msg=document.getElementById('smsg').value.trim();
+  if(!msg){toast('Enter a secret message.','err');return;}
+
+  const useEnc=document.getElementById('useEnc').checked;
+  const pw=document.getElementById('epw').value;
+  const bpc=parseInt(document.getElementById('bpc').value);
+
+  if(useEnc&&!pw){toast('Enter a password or disable encryption in Advanced Options.','err');return;}
+
+  const btn=document.getElementById('enc-btn');
+  btn.disabled=true;btn.innerHTML='<div class="spin"></div> Processing…';
+  prog('epr','epf','epp','epl',0,'Preparing…');
+  showProg('epr');
+
+  try{
+    prog('epr','epf','epp','epl',12,'Preparing payload…');await ms(60);
+    let payload;
+    if(useEnc){
+      prog('epr','epf','epp','epl',30,'Encrypting AES-256-GCM…');await ms(80);
+      payload=await aesEncrypt(msg,pw);
+    } else {
+      payload=new TextEncoder().encode(msg);
+    }
+
+    prog('epr','epf','epp','epl',55,'Embedding LSB bits…');await ms(80);
+    const newPx=embed(
+      new ImageData(new Uint8ClampedArray(encImgData.data),encImgData.width,encImgData.height),
+      payload,bpc
+    );
+
+    prog('epr','epf','epp','epl',85,'Rendering output image…');await ms(60);
+    const cv=document.getElementById('ecanvas');
+    cv.width=encImgData.width;cv.height=encImgData.height;
+    const ctx=cv.getContext('2d');
+    ctx.putImageData(new ImageData(new Uint8ClampedArray(newPx),cv.width,cv.height),0,0);
+
+    prog('epr','epf','epp','epl',100,'Done!');await ms(340);
+    document.getElementById('epr').classList.remove('show');
+    document.getElementById('eres').classList.add('show');
+    toast('Message hidden! Download the PNG and share it.','ok');
+  } catch(err){
+    document.getElementById('epr').classList.remove('show');
+    toast('Encoding failed: '+err.message,'err');
+  }
+  btn.disabled=false;btn.innerHTML='🔏 Encode Message';
+}
+
+// ════════════════════════════════════════
+// DECODE FLOW
+// ════════════════════════════════════════
+async function doDecode(){
+  const f=document.getElementById('di').files[0];
+  if(!f){toast('Load an encoded image first.','err');return;}
+
+  const pw=document.getElementById('dpw').value;
+  const bpc=parseInt(document.getElementById('dbpc').value);
+
+  const btn=document.getElementById('dec-btn');
+  btn.disabled=true;btn.innerHTML='<div class="spin"></div> Extracting…';
+  prog('dpr','dpf','dpp','dpl',0,'Loading…');showProg('dpr');
+
+  try{
+    prog('dpr','dpf','dpp','dpl',20,'Loading pixel data…');
+    const imgData=await fileToImgData(f);
+    prog('dpr','dpf','dpp','dpl',45,'Scanning for LSB data…');await ms(80);
+
+    const payload=extract(imgData,bpc);
+    prog('dpr','dpf','dpp','dpl',72,'Decrypting payload…');await ms(80);
+
+    const isAES=CRYPTO_MAGIC.every((v,i)=>payload[i]===v);
+    let message;
+
+    if(isAES){
+      if(!pw) throw new Error('This message is AES-encrypted. Enter the decryption password.');
+      try{ message=await aesDecrypt(payload,pw); }
+      catch{ throw new Error('Wrong password or corrupted data — AES-GCM authentication failed.'); }
+    } else {
+      message=new TextDecoder().decode(payload);
+    }
+
+    prog('dpr','dpf','dpp','dpl',100,'Done!');await ms(340);
+    document.getElementById('dpr').classList.remove('show');
+    renderDecodeOk(message,isAES,payload.length);
+    toast('Message extracted successfully!','ok');
+
+  } catch(err){
+    document.getElementById('dpr').classList.remove('show');
+    renderDecodeErr(err.message);
+    toast('Extraction failed: '+err.message,'err');
+  }
+  btn.disabled=false;btn.innerHTML='🔓 Extract Message';
+}
+
+function renderDecodeOk(msg,wasEnc,bytes){
+  const box=document.getElementById('dres');
+  box.classList.add('show');
+  box.innerHTML=`
+    <div class="res-hdr">
+      <div class="res-ico ok">✅</div>
+      <div><div class="res-t ok">Message Extracted!</div>
+           <div class="res-s">${wasEnc?'🔒 Decrypted with AES-256-GCM':'📝 Plain (unencrypted) payload'}</div></div>
+    </div>
+    <div class="decoded" id="dtxt">${esc(msg)}</div>
+    <div class="meta-pills">
+      <div class="mpill">📦 Payload <span>${bytes.toLocaleString()} bytes</span></div>
+      <div class="mpill">🔒 Encrypted <span>${wasEnc?'Yes — AES-256-GCM':'No'}</span></div>
+      <div class="mpill">⏱️ Time <span>${new Date().toLocaleTimeString()}</span></div>
+    </div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-s" onclick="copyMsg()">📋 Copy</button>
+      <button class="btn btn-s" onclick="dlMsg()">⬇️ Save .txt</button>
+    </div>`;
+}
+
+function renderDecodeErr(msg){
+  const box=document.getElementById('dres');
+  box.classList.add('show');
+  box.innerHTML=`
+    <div class="res-hdr">
+      <div class="res-ico bad">❌</div>
+      <div><div class="res-t bad">Extraction Failed</div><div class="res-s">${esc(msg)}</div></div>
+    </div>
+    <div class="inf w" style="margin-top:10px">💡 Checklist: correct image (PNG not JPEG-reconverted) · correct bit depth · correct password</div>`;
+}
+
+// ════════════════════════════════════════
+// DOWNLOADS & COPY
+// ════════════════════════════════════════
+function dlEncoded(){
+  document.getElementById('ecanvas').toBlob(blob=>{
+    const u=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=u;a.download='stegno_'+Date.now()+'.png';
+    a.click();URL.revokeObjectURL(u);toast('Image downloaded!','ok');
+  },'image/png');
+}
+function copyShareInfo(){
+  const t=`StegnoVault Encoded Image\nDate: ${new Date().toISOString()}\nBit Depth: ${document.getElementById('bpc').value}\nEncrypted: ${document.getElementById('useEnc').checked?'AES-256-GCM':'No'}\nDecoder: https://ramaneon.github.io/stegno`;
+  navigator.clipboard.writeText(t).then(()=>toast('Info copied!','ok'));
+}
+function copyMsg(){
+  const el=document.getElementById('dtxt');
+  if(el) navigator.clipboard.writeText(el.textContent).then(()=>toast('Copied!','ok'));
+}
+function dlMsg(){
+  const el=document.getElementById('dtxt');if(!el)return;
+  const b=new Blob([el.textContent],{type:'text/plain'});
+  const u=URL.createObjectURL(b);const a=document.createElement('a');
+  a.href=u;a.download='decoded_message.txt';a.click();URL.revokeObjectURL(u);
+}
+
+// ════════════════════════════════════════
+// CLEAR
+// ════════════════════════════════════════
+function clearEnc(){
+  document.getElementById('ei').value='';
+  document.getElementById('ep').style.display='none';
+  document.getElementById('edz-ph').style.display='flex';
+  document.getElementById('efn').textContent='';
+  document.getElementById('smsg').value='';
+  document.getElementById('epw').value='';
+  document.getElementById('eres').classList.remove('show');
+  document.getElementById('cap-wrap').style.display='none';
+  document.getElementById('cc').textContent='0 chars';
+  document.getElementById('enc-btn').disabled=true;
+  encImgData=null;toast('Cleared.','inf');
+}
+function clearDec(){
+  document.getElementById('di').value='';
+  document.getElementById('dp').style.display='none';
+  document.getElementById('ddz-ph').style.display='flex';
+  document.getElementById('dfn').textContent='';
+  document.getElementById('dpw').value='';
+  const r=document.getElementById('dres');r.classList.remove('show');r.innerHTML='';
+  document.getElementById('dec-btn').disabled=true;toast('Cleared.','inf');
+}
+
+// ════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════
+function fileToImgData(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
+        const ctx=c.getContext('2d');ctx.drawImage(img,0,0);
+        res(ctx.getImageData(0,0,c.width,c.height));
+      };
+      img.onerror=rej;img.src=e.target.result;
+    };
+    r.onerror=rej;r.readAsDataURL(file);
+  });
+}
+function showProg(id){document.getElementById(id).classList.add('show')}
+function prog(wId,fId,pId,lId,pct,lbl){
+  document.getElementById(fId).style.width=pct+'%';
+  document.getElementById(pId).textContent=pct+'%';
+  document.getElementById(lId).textContent=lbl;
+}
+function ms(n){return new Promise(r=>setTimeout(r,n))}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+
+// ════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════
+function toast(msg,type='inf'){
+  const c=document.getElementById('toasts');
+  const t=document.createElement('div');t.className='toast '+type;
+  t.innerHTML=`<div class="td"></div><span>${esc(msg)}</span>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),360)},3600);
+}
+
+// Keyboard shortcut: Ctrl+Enter to encode/decode
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){
+    if(document.getElementById('p-enc').classList.contains('on')) doEncode();
+    else doDecode();
+  }
+});
+</script>
+</body>
+</html>
