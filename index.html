@@ -8,11 +8,11 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 
   <style>
     /* ══════════════════════════════════════════════════════════════
-       APOGEE COLOR SYSTEM & SPECIFICATION (EXACT REPRODUCTION)
+       APOGEE COLOR SYSTEM & SPECIFICATION (CLEAN MINIMAL EDITION)
        ══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
@@ -31,25 +31,25 @@
       --apogee-border: rgba(255, 255, 255, 0.12);
       --apogee-border-focus: rgba(255, 255, 255, 0.45);
       --apogee-cents-dim: rgba(255, 255, 255, 0.2);
-      --apogee-txt-secondary: rgba(255, 255, 255, 0.82);
-      --apogee-txt-muted: rgba(255, 255, 255, 0.48);
+      --apogee-txt-secondary: rgba(255, 255, 255, 0.85);
+      --apogee-txt-muted: rgba(255, 255, 255, 0.45);
 
       --radius-btn: 12px;
-      --radius-pill: 11px;
-      --radius-card: 28px;
+      --radius-pill: 10px;
+      --radius-card: 24px;
       --radius-full: 9999px;
 
-      --font-display: 'Geist', 'Inter', -apple-system, sans-serif;
-      --font-body: 'Geist', 'Inter', -apple-system, sans-serif;
-      --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+      --font-ui: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
     html {
       scroll-behavior: smooth;
       background: var(--apogee-bg);
       color: #ffffff;
-      font-family: var(--font-body);
+      font-family: var(--font-ui);
       overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -58,6 +58,8 @@
       background: var(--apogee-bg);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     }
 
     /* ── APOGEE BACKGROUND VIDEO (EXACT CLOUDFRONT SOURCE) ── */
@@ -108,120 +110,124 @@
     .app-viewport {
       position: relative;
       z-index: 1;
-      max-width: 1140px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 16px 20px 60px;
+      padding: 16px 20px 50px;
     }
 
-    /* ── APOGEE TOP TELEMETRY PILL ── */
-    .top-telemetry {
+    /* ── TOP NAV BAR WITH GUIDE BUTTON ON TOP RIGHT ── */
+    .site-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 18px;
-      background: var(--apogee-nav-glass);
-      border: 1px solid var(--apogee-border);
-      border-radius: var(--radius-full);
-      backdrop-filter: blur(17px);
-      margin-bottom: 24px;
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.4px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      padding: 8px 0 16px;
+      margin-bottom: 6px;
     }
-    .telemetry-node {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--apogee-txt-secondary);
-      font-weight: 500;
-    }
-    .status-pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 8px #ffffff;
-      animation: pulseBlink 2s ease-in-out infinite alternate;
-    }
-    @keyframes pulseBlink {
-      0% { opacity: 0.4; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #ffffff; }
-    }
-    .telemetry-tags {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .telemetry-tag {
-      color: var(--apogee-txt-muted);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.7rem;
-    }
-    .telemetry-tag span { color: #ffffff; font-weight: 500; }
-
-    /* ── HERO BANNER ── */
-    header {
-      text-align: center;
-      padding: 10px 0 28px;
-      position: relative;
-    }
-
-    .brand-pill {
+    .brand-logo-wrap {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 5px 16px;
-      border-radius: var(--radius-pill);
-      background: var(--apogee-nav-glass);
-      border: 1px solid var(--apogee-border);
-      backdrop-filter: blur(17px);
-      margin-bottom: 18px;
+      gap: 10px;
+      text-decoration: none;
+      color: #ffffff;
     }
     .brand-icon-core {
-      width: 20px;
-      height: 20px;
-      border-radius: 5px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       background: #E9E9E9;
       color: #0A0707;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
+      font-size: 0.82rem;
       font-weight: 800;
+      letter-spacing: -0.5px;
     }
     .brand-title {
-      font-family: var(--font-display);
+      font-family: var(--font-ui);
       font-weight: 600;
-      font-size: 0.82rem;
-      letter-spacing: 0.6px;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
       color: #ffffff;
     }
     .brand-title em {
       font-style: normal;
       color: var(--apogee-txt-muted);
-      margin-left: 2px;
+      margin-left: 4px;
+      font-size: 0.76rem;
+      font-weight: 400;
     }
 
-    h1.hero-headline {
-      font-family: var(--font-display);
-      font-size: clamp(1.85rem, 4.4vw, 3.2rem);
+    .nav-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-info-pill {
+      background: var(--apogee-nav-glass);
+      border: 1px solid var(--apogee-border);
+      border-radius: var(--radius-pill);
+      color: var(--apogee-txt-secondary);
+      padding: 6px 14px;
+      font-size: 0.76rem;
+      font-family: var(--font-ui);
       font-weight: 500;
-      letter-spacing: -0.035em;
-      line-height: 1.08;
-      margin-bottom: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(17px);
+    }
+    .btn-info-pill:hover {
+      border-color: #ffffff;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+    .btn-gh-link {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--apogee-border);
+      border-radius: var(--radius-pill);
+      color: var(--apogee-txt-secondary);
+      padding: 6px 12px;
+      font-size: 0.76rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(17px);
+    }
+    .btn-gh-link:hover {
+      border-color: #ffffff;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ── COMPACT HERO BANNER ── */
+    header {
+      text-align: center;
+      padding: 4px 0 18px;
+      position: relative;
+    }
+    h1.hero-headline {
+      font-family: var(--font-ui);
+      font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.18;
+      margin-bottom: 8px;
       color: #ffffff;
       text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+      word-break: break-word;
     }
-
     .hero-subtitle {
-      max-width: 580px;
-      margin: 0 auto 26px;
-      font-size: 0.92rem;
+      max-width: 480px;
+      margin: 0 auto 16px;
+      font-size: 0.85rem;
       color: var(--apogee-txt-secondary);
-      line-height: 1.55;
+      line-height: 1.45;
       font-weight: 400;
     }
 
@@ -229,23 +235,23 @@
     .preset-strip {
       display: flex;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
     .preset-chip {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 16px;
+      gap: 5px;
+      padding: 5px 14px;
       border-radius: var(--radius-pill);
-      font-size: 0.76rem;
-      font-weight: 450;
+      font-size: 0.74rem;
+      font-weight: 500;
       background: var(--apogee-nav-glass);
       border: 1px solid var(--apogee-border);
       color: var(--apogee-txt-secondary);
       cursor: pointer;
-      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       backdrop-filter: blur(17px);
     }
     .preset-chip:hover {
@@ -257,15 +263,15 @@
       background: #E9E9E9;
       border-color: #E9E9E9;
       color: #0A0707;
-      font-weight: 500;
-      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.22);
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
     }
 
     /* ── APOGEE MASTER TAB PILL ── */
     .tab-deck-container {
       display: flex;
       justify-content: center;
-      margin-bottom: 30px;
+      margin-bottom: 22px;
     }
     .tab-deck {
       position: relative;
@@ -282,22 +288,22 @@
       z-index: 2;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 26px;
+      gap: 7px;
+      padding: 8px 22px;
       border: none;
       background: none;
       color: var(--apogee-txt-secondary);
-      font-family: var(--font-body);
-      font-size: 0.84rem;
-      font-weight: 450;
-      border-radius: 10px;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 9px;
       cursor: pointer;
-      transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .tab-btn.active {
       color: #0A0707;
       background: #E9E9E9;
-      font-weight: 500;
+      font-weight: 600;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
     .tab-btn:not(.active):hover {
@@ -308,11 +314,11 @@
     /* ── PANELS ── */
     .view-panel {
       display: none;
-      animation: apogeeFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: apogeeFade 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .view-panel.active { display: block; }
     @keyframes apogeeFade {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -323,7 +329,7 @@
       border-radius: var(--radius-card);
       border: 1px solid var(--apogee-border);
       backdrop-filter: blur(20px);
-      padding: 30px;
+      padding: 26px;
       box-shadow: 0 24px 70px -15px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       overflow: hidden;
       transition: border-color 0.3s ease;
@@ -337,31 +343,137 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 30px;
-      padding-bottom: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .panel-badge {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-family: var(--font-display);
-      font-size: 0.92rem;
-      font-weight: 500;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
+      gap: 10px;
+      font-family: var(--font-ui);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
       color: #ffffff;
     }
     .panel-badge-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 0.95rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--apogee-border);
+    }
+
+    /* ── ABOUT / DETAILS MODAL (TOP-RIGHT ACCESS) ── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 10, 25, 0.85);
+      backdrop-filter: blur(20px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: modalFadeIn 0.22s ease-out;
+    }
+    .modal-backdrop.active { display: flex; }
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-card {
+      background: rgba(14, 16, 28, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      max-width: 620px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      animation: modalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalSlideUp {
+      from { transform: translateY(18px) scale(0.96); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .modal-title {
+      font-family: var(--font-ui);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--apogee-border);
+      border-radius: 8px;
+      color: var(--apogee-txt-secondary);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .modal-close-btn:hover {
+      background: #E9E9E9;
+      color: #0A0707;
+      border-color: #E9E9E9;
+    }
+    .modal-body {
+      font-size: 0.82rem;
+      color: var(--apogee-txt-secondary);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal-spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    @media (max-width: 540px) { .modal-spec-grid { grid-template-columns: 1fr; } }
+    .modal-spec-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--apogee-border);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .modal-spec-title {
+      font-family: var(--font-ui);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .modal-spec-desc {
+      font-size: 0.74rem;
+      color: var(--apogee-txt-muted);
+      line-height: 1.45;
     }
 
     /* ── APOGEE STAT TILES (REVENUE CARD STYLE) ── */
@@ -834,96 +946,57 @@
     }
     .meta-pill span { color: #ffffff; font-weight: 600; }
 
-    /* ── ARCHITECTURE SECTION ── */
-    .specs-section { margin-top: 85px; }
-    .section-headline {
-      font-family: var(--font-display); font-size: 1.65rem; font-weight: 500; letter-spacing: -0.6px;
-      margin-bottom: 28px; display: flex; align-items: center; gap: 14px; color: #ffffff;
-    }
-    .section-headline::after {
-      content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.15);
-    }
-
-    .specs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    @media (max-width: 992px) { .specs-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 580px) { .specs-grid { grid-template-columns: 1fr; } }
-    
-    .spec-card {
-      background: var(--apogee-card-glass);
-      border: 1px solid var(--apogee-border);
-      border-radius: 20px;
-      padding: 26px 22px;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      transition: all 0.28s ease;
-    }
-    .spec-card:hover {
-      border-color: var(--apogee-border-focus);
-      transform: translateY(-3px);
-    }
-    .spec-num {
-      font-family: var(--font-mono); font-size: 1.6rem; font-weight: 600; color: #ffffff;
-      opacity: 0.35; margin-bottom: 12px;
-    }
-    .spec-title {
-      font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; margin-bottom: 8px; color: #ffffff;
-    }
-    .spec-body { font-size: 0.84rem; color: var(--apogee-txt-secondary); line-height: 1.6; }
-
     /* ── COMPREHENSIVE MOBILE OPTIMIZATIONS ── */
     @media (max-width: 768px) {
       .app-viewport {
         padding: 12px 14px 45px;
       }
-      .top-telemetry {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-        padding: 8px 14px;
-        margin-bottom: 20px;
-        border-radius: 12px;
+      .site-nav {
+        padding: 6px 0 14px;
       }
-      .telemetry-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 12px;
+      .brand-title {
+        font-size: 0.88rem;
+      }
+      .btn-info-pill, .btn-gh-link {
+        padding: 5px 10px;
+        font-size: 0.72rem;
       }
       header {
-        padding: 6px 0 20px;
+        padding: 4px 0 16px;
       }
       h1.hero-headline {
-        font-size: 1.75rem;
-        line-height: 1.12;
-        letter-spacing: -0.025em;
-        margin-bottom: 10px;
+        font-size: 1.45rem;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
       }
       .hero-subtitle {
-        font-size: 0.84rem;
-        line-height: 1.5;
-        margin-bottom: 20px;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        margin-bottom: 16px;
         padding: 0 4px;
       }
       .preset-strip {
-        gap: 6px;
-        margin-bottom: 22px;
+        gap: 5px;
+        margin-bottom: 18px;
       }
       .preset-chip {
-        padding: 5px 12px;
-        font-size: 0.72rem;
+        padding: 4px 10px;
+        font-size: 0.7rem;
       }
       .tab-deck {
         width: 100%;
-        max-width: 380px;
+        max-width: 340px;
       }
       .tab-btn {
         flex: 1;
         justify-content: center;
-        padding: 8px 16px;
-        font-size: 0.8rem;
+        padding: 7px 12px;
+        font-size: 0.78rem;
       }
       .cyber-card {
-        padding: 18px 14px;
-        border-radius: 20px;
+        padding: 16px 12px;
+        border-radius: 18px;
       }
       .card-topbar {
         flex-direction: column;
@@ -961,17 +1034,8 @@
         font-size: 14px;
         padding: 0 20px;
       }
-      .specs-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-      .spec-card {
-        padding: 18px 16px;
-        border-radius: 16px;
-      }
-      .section-headline {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
+      .modal-card {
+        padding: 20px 16px;
       }
       .toast-rack {
         left: 14px;
@@ -1052,35 +1116,34 @@
 
   <div class="app-viewport">
     
-    <!-- TOP TELEMETRY PILL -->
-    <div class="top-telemetry">
-      <div class="telemetry-node">
-        <div class="status-pulse-dot"></div>
-        <span>APOGEE ENCLAVE // LOCAL SANDBOX</span>
+    <!-- TOP NAVIGATION: CLEAN TITLE ON LEFT, GUIDE/DETAILS ON TOP RIGHT -->
+    <nav class="site-nav">
+      <div class="brand-logo-wrap">
+        <div class="brand-icon-core">S</div>
+        <div class="brand-title">STEGNOVAULT<em>ENCLAVE</em></div>
       </div>
-      <div class="telemetry-tags">
-        <div class="telemetry-tag">THEME: <span>APOGEE COSMIC</span></div>
-        <div class="telemetry-tag">CIPHER: <span>AES-256-GCM</span></div>
-        <div class="telemetry-tag">MODULATION: <span>LSB MULTI-BIT</span></div>
+      <div class="nav-right-actions">
+        <button class="btn-info-pill" type="button" onclick="openDetailsModal()">
+          <span>ℹ️</span> Details &amp; Guide
+        </button>
+        <a class="btn-gh-link" href="https://github.com/ramaneon/stegno" target="_blank" rel="noopener" title="Source Code">
+          GitHub
+        </a>
       </div>
-    </div>
+    </nav>
 
-    <!-- HERO HEADER -->
+    <!-- CLEAN, UNCLUTTERED HERO HEADER -->
     <header>
-      <div class="brand-pill">
-        <div class="brand-icon-core">A</div>
-        <div class="brand-title">APOGEE <em>STEGNO</em></div>
-      </div>
-      <h1 class="hero-headline">Elevate your essential data<br>to new heights</h1>
+      <h1 class="hero-headline">Image Steganography &amp; Inscription</h1>
       <p class="hero-subtitle">
-        Inject authenticated, military-grade encrypted payloads invisibly into PNG &amp; BMP carriers using adaptive multi-channel LSB modulation. Zero server dependencies, 100% browser-side privacy.
+        Conceal encrypted messages invisibly inside PNG &amp; BMP pixels with client-side AES-256-GCM authentication.
       </p>
 
       <!-- PRESET PROTOCOL SELECTOR -->
       <div class="preset-strip">
-        <div class="preset-chip active" onclick="applyPreset('balanced')">⚡ Balanced Shield (2-Bit • AES-256)</div>
-        <div class="preset-chip" onclick="applyPreset('ghost')">👻 Ghost Protocol (1-Bit • CTF Stealth)</div>
-        <div class="preset-chip" onclick="applyPreset('hyper')">🚀 Hyper Capacity (3-Bit • Max Space)</div>
+        <div class="preset-chip active" onclick="applyPreset('balanced')">⚡ Balanced (2-Bit • AES-256)</div>
+        <div class="preset-chip" onclick="applyPreset('ghost')">👻 Stealth (1-Bit • CTF Invisibility)</div>
+        <div class="preset-chip" onclick="applyPreset('hyper')">🚀 Max Space (3-Bit)</div>
       </div>
 
       <!-- MASTER TAB DECK -->
@@ -1396,53 +1459,49 @@
       </div>
     </div>
 
-    <!-- ARCHITECTURE GUIDE -->
-    <section class="specs-section">
-      <div class="section-headline">
-        <span>Apogee Architecture &amp; Methodology</span>
+    <!-- DETAILS & ARCHITECTURE MODAL DIALOG (OPENED FROM TOP-RIGHT) -->
+    <div class="modal-backdrop" id="detailsModal" onclick="closeDetailsModal(event)">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>🛡️</span> Technical Details &amp; Architecture
+          </div>
+          <button class="modal-close-btn" type="button" onclick="closeDetailsModal()" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>StegnoVault</strong> is a 100% browser-side image steganography and cryptographic inscription engine. Data is encoded and decoded directly inside your device memory with zero server uploads or external network requests.
+          </p>
+
+          <div class="modal-spec-grid">
+            <div class="modal-spec-item">
+              <div class="modal-spec-title"><span>🔒</span> AES-256-GCM</div>
+              <div class="modal-spec-desc">FIPS-compliant authenticated encryption with a 96-bit random IV preventing plaintext recovery and tampering.</div>
+            </div>
+            <div class="modal-spec-item">
+              <div class="modal-spec-title"><span>🔑</span> PBKDF2 Hardening</div>
+              <div class="modal-spec-desc">100,000 SHA-256 derivation rounds with random 128-bit salt neutralize GPU rainbow tables.</div>
+            </div>
+            <div class="modal-spec-item">
+              <div class="modal-spec-title"><span>🧬</span> LSB Carrier Modulation</div>
+              <div class="modal-spec-desc">Injects 1, 2, or 3 bits per RGB color channel. Alpha is preserved for lossless PNG conformity.</div>
+            </div>
+            <div class="modal-spec-item">
+              <div class="modal-spec-title"><span>🔬</span> CTF Forensic Shield</div>
+              <div class="modal-spec-desc">1-bit stealth modulation shifts pixel values by only ±1, blending seamlessly into camera sensor noise.</div>
+            </div>
+          </div>
+
+          <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid var(--apogee-border);font-family:var(--font-mono);font-size:0.75rem;color:var(--apogee-txt-secondary)">
+            📦 <strong>Binary Protocol:</strong> Pixel offset 0 embeds a 32-byte header with magic bytes <code style="color:#ffffff">STGN</code>, bit depth, payload length, and encryption tags.
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="specs-grid">
-        <div class="spec-card">
-          <div class="spec-num">01</div>
-          <div class="spec-title">PBKDF2 Hardening</div>
-          <div class="spec-body">
-            Keys are derived through 100,000 PBKDF2-HMAC-SHA256 cycles with a cryptographically random 128-bit salt, neutralizing GPU rainbow tables.
-          </div>
-        </div>
-
-        <div class="spec-card">
-          <div class="spec-num">02</div>
-          <div class="spec-title">AES-256-GCM Cipher</div>
-          <div class="spec-body">
-            Authenticated Encryption with Associated Data (AEAD) ensures both secrecy and bit-level integrity detection with a 96-bit random IV.
-          </div>
-        </div>
-
-        <div class="spec-card">
-          <div class="spec-num">03</div>
-          <div class="spec-title">Matrix Inscription</div>
-          <div class="spec-body">
-            Bytes are split into 1–3 bit atoms and interwoven across RGB subpixels, keeping alpha intact for lossless PNG standard conformity.
-          </div>
-        </div>
-
-        <div class="spec-card">
-          <div class="spec-num">04</div>
-          <div class="spec-title">CTF &amp; Forensics Shield</div>
-          <div class="spec-body">
-            Under 1-bit modulation, pixel alteration is ±1 value out of 255. Statistical steganalysis registers standard camera noise floor.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
+    <!-- MINIMAL CLEAN FOOTER (NO VENDOR CREDITS) -->
     <footer>
-      <p>STEGNOVAULT // APOGEE COSMIC EDITION</p>
-      <p style="margin-top:8px">
-        Designed with Apogee Design System • Open Source on <a href="https://github.com/ramaneon/stegno" target="_blank" rel="noopener">GitHub</a>
-      </p>
+      <p>STEGNOVAULT // CLIENT-SIDE ENCRYPTED STEGANOGRAPHY</p>
     </footer>
 
   </div>
@@ -1485,6 +1544,17 @@
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
+
+    // ── DETAILS MODAL LOGIC ──
+    function openDetailsModal() {
+      const m = document.getElementById('detailsModal');
+      if (m) m.classList.add('active');
+    }
+    function closeDetailsModal(e) {
+      if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('modal-close-btn')) return;
+      const m = document.getElementById('detailsModal');
+      if (m) m.classList.remove('active');
+    }
 
     // ── TABS & PRESETS ──
     function switchSuiteTab(tab) {
